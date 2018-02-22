@@ -1,0 +1,26 @@
+{
+  "name": "meanauthapp",
+  "version": "1.0.0",
+  "description": "MEAN stack authentification app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "compromise": "^11.4.0",
+    "cors": "*",
+    "express": "*",
+    "https": "^1.0.0",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "rest": "^2.0.0",
+    "typed-rest-client": "^1.0.7"
+  },
+  "author": "Alexander Cliffe",
+  "license": "ISC"
+}

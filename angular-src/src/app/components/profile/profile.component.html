@@ -1,0 +1,18 @@
+<div *ngIf="user">
+  <h2 class="page=header">Your account details:</h2>
+    <ul class="list-group">
+      <li class="list-group-item">Username: {{user.username}}</li>
+      <li class="list-group-item">Name: {{user.name}}</li>
+      <li class="list-group-item">Email: {{user.email}}</li>
+    </ul>
+</div>
+
+<h2 class="page=header">Your groups:</h2>
+<div *ngFor="let group of groupNames">
+  <ul class="list-group">
+      <li class="list-group-item">  Name: {{group}}</li>
+
+    </ul>
+</div>
+ 
+ 

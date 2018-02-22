@@ -1,0 +1,47 @@
+<h2>Enter the text you would like to generate questions for:</h2>
+
+<form (submit)="onGenerateQuestions()" id="generate">
+  <div class="form-group">
+    <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="145"></textarea>
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form> 
+
+<br> 
+
+<div *ngFor="let question of whoQuestions">
+  <ul class="list-group">
+      <li class="list-group-item">  Question: {{question}}</li>
+    </ul>
+</div>
+
+<div *ngFor="let answer of whoAnswers">
+  <ul class="list-group">
+      <li class="list-group-item">  Answer: {{answer}}</li>
+    </ul>
+</div>
+
+<div *ngFor="let question of whereQuestions">
+  <ul class="list-group">
+      <li class="list-group-item">  Question: {{question}}</li>
+    </ul>
+</div>
+
+<div *ngFor="let answer of whereAnswers">
+  <ul class="list-group">
+      <li class="list-group-item">  Answer: {{answer}}</li>
+    </ul>
+</div>
+
+<div *ngFor="let question of whenQuestions">
+  <ul class="list-group">
+      <li class="list-group-item">  Question: {{question}}</li>
+    </ul>
+</div>
+
+<div *ngFor="let answer of whenAnswers">
+  <ul class="list-group">
+      <li class="list-group-item">  Answer: {{answer}}</li>
+    </ul>
+</div> 
+
