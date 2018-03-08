@@ -1,0 +1,22 @@
+
+ td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+textarea {
+    resize: none;
+ }
+
+ input[type=button]
+ {
+   background-color: rgb(131, 46, 165); 
+ }
+ 

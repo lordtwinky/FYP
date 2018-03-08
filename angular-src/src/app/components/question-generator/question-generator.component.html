@@ -1,47 +1,52 @@
-<h2>Enter the text you would like to generate questions for:</h2>
+<h2 align="center">Question Generation Tool</h2>
 
-<form (submit)="onGenerateQuestions()" id="generate">
-  <div class="form-group">
-    <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="145"></textarea>
-  </div>
-  <input type="submit" class="btn btn-primary" value="Submit">
-</form> 
+<br>
+
+
+<div class="well">
+  <form (submit)="onGenerateQuestions()" id="generate" align="right">
+    <div class="form-textArea">
+      <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="154" class="form-control" align="right"></textarea>
+    </div>
+    <div class="dropdownTopics">
+            <label for="topics"></label>
+            <select [(ngModel)]="topic" name="topic" class="select-privacy" id="topic" required>
+              <option *ngFor="let topic of topics" [value]="topic.id">{{topic.name}}</option>
+            </select>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Submit" align="right"  >
+    <!-- style="background-color:rgb(148, 148, 148); border: solid 1px rgb(0, 0, 0);" -->
+  </form> 
+</div>
+
+
+
 
 <br> 
 
-<div *ngFor="let question of whoQuestions">
-  <ul class="list-group">
-      <li class="list-group-item">  Question: {{question}}</li>
-    </ul>
-</div>
+<table>
+    <div *ngIf="whoQ"><h3>Who-based Questions</h3></div>
+    <ng-container *ngFor="let QAs of whoQAs">
+        <tr><td title="'Question'">{{QAs.question}}</td><td title="'Answer'">{{QAs.answer}}</td></tr>
+    </ng-container>
+</table>
 
-<div *ngFor="let answer of whoAnswers">
-  <ul class="list-group">
-      <li class="list-group-item">  Answer: {{answer}}</li>
-    </ul>
-</div>
+<br>
 
-<div *ngFor="let question of whereQuestions">
-  <ul class="list-group">
-      <li class="list-group-item">  Question: {{question}}</li>
-    </ul>
-</div>
+<table>
+    <div *ngIf="whereQ"><h3>Where-based Questions</h3></div>
+    <ng-container *ngFor="let QAs of whereQAs">
+        <tr><td>{{QAs.question}}</td><td>{{QAs.answer}}</td></tr>
+    </ng-container>
+</table>
 
-<div *ngFor="let answer of whereAnswers">
-  <ul class="list-group">
-      <li class="list-group-item">  Answer: {{answer}}</li>
-    </ul>
-</div>
+<br>
 
-<div *ngFor="let question of whenQuestions">
-  <ul class="list-group">
-      <li class="list-group-item">  Question: {{question}}</li>
-    </ul>
-</div>
+<table>
+    <div *ngIf="whenQ"><h3>When-based Questions</h3></div>
+    <ng-container *ngFor="let QAs of whenQAs">
+        <tr><td>{{QAs.question}}</td><td>{{QAs.answer}}</td></tr>
+    </ng-container>
+</table>
 
-<div *ngFor="let answer of whenAnswers">
-  <ul class="list-group">
-      <li class="list-group-item">  Answer: {{answer}}</li>
-    </ul>
-</div> 
-
+<br> 

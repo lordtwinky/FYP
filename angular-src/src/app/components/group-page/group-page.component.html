@@ -1,0 +1,33 @@
+<div *ngIf="group">
+  <h2 class="page=header">Welcome to the Group:</h2>
+    <ul class="list-group">
+      <li class="list-group-item">Name: {{group.name}}</li>
+    </ul>
+</div>
+
+<h2 class="page=header">All topics:</h2>
+<div *ngFor="let topic of topics">
+  <ul class="list-group">
+      <a [routerLink]="['/TopicPage', topic._id]">
+        <span>{{topic.name}}</span>
+      </a>
+    </ul>
+</div>
+
+
+<h2 class="page-header">Create new Topic</h2>
+<form (submit)="onCreateTopic()">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" [(ngModel)]="name" name="name" class="form-control">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+
+
+<h2 class="page-header">Join this group</h2>
+<form (submit)="joinGroup()">
+  <div class="join-group">
+      <input type="submit" class="btn btn-primary" value="Join">
+  </div>
+</form>

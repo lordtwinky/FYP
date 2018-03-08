@@ -83,6 +83,7 @@ router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res
         } 
         else {
             for (i = 0; i < groups.length; i++) { 
+              if(groupsFound[i] !== null && groupsFound[i] !== undefined)
                  groupNames.push(groupsFound[i].name);
             }
             res.json({ success: true, user: req.user, groups: groupNames }); // Return success and groups array

@@ -1,12 +1,14 @@
-<h2 class="page-header">List of all current groups:</h2>
+<!-- <h2 class="page-header">List of all current groups:</h2>
 
-<div *ngFor="let group of groupNames">
+<div *ngFor="let group of groupNames" >
     <ul class="list-group">
         <li class="list-group-item">  Name: {{group.name}}</li>
         <li class="list-group-item">  Admin: {{group.admin}}</li>
+        <a [routerLink]="['/GroupPage', group._id]">
+          <span class="badge">{{ group._id }}</span>{{ group.name }}
+        </a>
       </ul>
 </div>
-
 
 
 
@@ -15,9 +17,31 @@
   <div class="form-group">
     <label>Name</label>
     <input type="text" [(ngModel)]="name" name="name" class="form-control">
-    <label>Admin name</label>
-    <input type="text" [(ngModel)]="admin" name="admin" class="form-control">
   </div>
   <input type="submit" class="btn btn-primary" value="Submit">
-</form>
+</form> -->
+
+<div class="bar">
+  <form id="search">
+    <label> Search: </label>
+    <input type="text" [(ngModel)]="term" name="term"/>
+  </form>
+</div>
+  <ul id="group-listing">
+    <li *ngFor="let group of groupNames | filter:term">
+      <div class="single-group">
+        
+        <a [routerLink]="['/GroupPage', group._id]">
+          <span>{{group.name}}</span>
+        </a>
+      </div>
+    </li>
+  </ul>
+<!-- <input type="text" ng-model="searchParam" placeholder="Search all groups...">
+</div>
+<div *ngFor="let value of values | filter:searchParam" >
+
+        <li class="list-group-item">  Name: {{value.name}}</li>
+
+</div> -->
 

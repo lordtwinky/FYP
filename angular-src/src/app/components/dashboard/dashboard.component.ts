@@ -29,15 +29,8 @@ export class DashboardComponent implements OnInit {
       console.log(err);
       return false;
     });
-     this.getMyGroups(this.user);
+
   }
 
-  
 
-
-  getMyGroups(user){
-    this.authService.getmyGroups(user).subscribe(data => {
-      this.groupNames = data.groups; 
-    });
-  }
 }

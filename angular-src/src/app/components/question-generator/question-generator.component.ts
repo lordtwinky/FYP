@@ -17,22 +17,35 @@ var  https = require('https');
 })
 export class QuestionGeneratorComponent implements OnInit {
   inputText: String;
-  q: string;
-  answer: string;
-  whoQuestions;
-  whoAnswers;
-  whereQuestions;
-  whereAnswers;
-  whenQuestions;
-  whenAnswers;
-
+  whoQAs = [];
+  whereQAs = [];
+  whenQAs = [];
+  whoQ;
+  whereQ;
+  whenQ;
+  user: Object;
+  topicIDs;
+  topics;
+  groupNames:Array<String>;
+  
   constructor(private authService: AuthService, private router: Router) { }
-
 
   ngOnInit() {
     if(this.inputText !== undefined){
     this.onGenerateQuestions();
     }
+
+    this.authService.getProfile().subscribe(profile => {
+      this.user = profile.user;
+      this.groupNames = profile.groups;
+    },
+    err => {
+      console.log(err);
+      return false;
+    });
+
+    console.log(this.user)
+    // this.getUserTopics();
   }
 
   onGenerateQuestions(){
@@ -43,43 +56,64 @@ export class QuestionGeneratorComponent implements OnInit {
               var whoQAarray = dataArray[0];
               var whereQAarray = dataArray[1]
               var whenQAarray = dataArray[2]
-              var whoQs = []
-              var whoAs = []
-              var whereQs = []
-              var whereAs = []
-              var whenQs = []
-              var whenAs = []
+
 
               for(var who = 0; who < whoQAarray.length; who++){
                 var whoQ = whoQAarray[who][0]
                 var whoA = whoQAarray[who][1]
-                whoQs.push(whoQ)
-                whoAs.push(whoA)
+
+                const whoQA = {
+                  question: whoQ,
+                  answer: whoA
+                }
+
+                this.whoQAs.push(whoQA)
+                this.whoQ = "e"
+
               }
               for(var where = 0; where < whereQAarray.length; where++){
                 var whereQ = whereQAarray[where][0]
                 var whereA = whereQAarray[where][1]
-                whereQs.push(whereQ)
-                whereAs.push(whereA)
+                
+                const whereQA = {
+                  question: whereQ,
+                  answer: whereA
+                }
+
+                this.whereQAs.push(whereQA)
+                this.whereQ = "e"
+
               }
               for(var when = 0; when < whenQAarray.length; when++){
                 var whenQ = whenQAarray[when][0]
                 var whenA = whenQAarray[when][1]
-                whenQs.push(whenQ)
-                whenAs.push(whenA)
+                
+                const whenQA = {
+                  question: whenQ,
+                  answer: whenA
+                }
+
+                this.whenQAs.push(whenQA)
+                this.whenQ = "e"
               }
-              
-              this.whoQuestions = whoQs
-              this.whoAnswers = whoAs
-
-              this.whereQuestions = whereQs
-              this.whereAnswers = whereAs
-
-              this.whenQuestions = whenQs
-              this.whenAnswers = whenAs
 
            });
   }
+
+  // getUserTopics(){
+
+  //   for(var x=0; x<this.user.groups.length;x++){
+  //     this.authService.getGroupPage(this.user.groups[x]).subscribe(data => {
+  //       this.topicIDs = data.group.topics;
+  //       for(var i=0; i<this.topicIDs.length;i++){
+  //         this.authService.getTopicPage(this.topicIDs[i]).subscribe(data => {
+  //           this.topics.push(data.topic)
+  //         });
+  //       }
+  //     });
+  //   }
+
+  // }
 
 
 

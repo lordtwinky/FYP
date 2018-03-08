@@ -18,6 +18,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { QuestionGeneratorComponent } from './components/question-generator/question-generator.component';
 import { GroupsComponent } from './components/groups/groups.component';
+import { GroupPageComponent } from './components/group-page/group-page.component';
+import { TopicPageComponent } from './components/topic-page/topic-page.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { GroupCreateComponent } from './components/group-create/group-create.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,8 +30,11 @@ const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path: 'QGTool', component: QuestionGeneratorComponent},
-  {path: 'Groups', component: GroupsComponent}
-
+  {path: 'Groups', component: GroupsComponent},
+  {path: 'GroupPage', component: GroupPageComponent},
+  {path: 'GroupPage/:id', component: GroupPageComponent},
+  {path: 'TopicPage/:id', component: TopicPageComponent},
+  {path: 'CreateGroup', component: GroupCreateComponent}
 ]
 @NgModule({
   declarations: [
@@ -39,7 +46,11 @@ const appRoutes: Routes = [
     ProfileComponent,
     HomeComponent,
     QuestionGeneratorComponent,
-    GroupsComponent
+    GroupsComponent,
+    GroupPageComponent,
+    TopicPageComponent,
+    FilterPipe,
+    GroupCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +59,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule
   ],
-  providers: [ValidateService, AuthService, AuthGuard],
+  providers: [ValidateService, AuthService, AuthGuard, FilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

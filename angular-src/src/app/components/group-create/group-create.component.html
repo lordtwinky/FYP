@@ -1,0 +1,35 @@
+<h2 class="page-header">Create new group</h2>
+<form (submit)="onCreateGroup()">
+  <div class="group-name">
+    <label>Group name</label>
+    <input type="text" [(ngModel)]="name" name="name" class="input-name">
+  </div>
+  <div class="group-setting">
+      <label for="setting">Privacy setting</label>
+      <select [(ngModel)]="setting" name="setting" class="select-privacy" id="setting" required>
+        <option *ngFor="let setting of settings" [value]="setting.id">{{setting.title}}</option>
+      </select>
+  </div>
+  <div class="group-type">
+      <label for="type">Type</label>
+      <select [(ngModel)]="type" name="type" class="select-group" id="type" required>
+        <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+      </select>
+  </div>
+  <div class="group-school">
+      <label>School name</label>
+      <input type="text" [(ngModel)]="school" name="school" class="input-school">
+  </div>
+  <div class="group-organization">
+      <label>Organization name</label>
+      <input type="text" [(ngModel)]="organization" name="organization" class="input-organization">
+  </div>
+  <div class="group-fields">
+      <label for="fields">Fields of interest</label>
+      <select multiple [(ngModel)]="fieldsSelected" name="fields" class="select-fields" id="type" required>
+        <option *ngFor="let field of fields" [value]="field.id">{{field.name}}</option>
+      </select>
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form> 
+

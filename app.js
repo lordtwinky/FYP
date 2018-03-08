@@ -27,9 +27,14 @@ const users = require('./routes/users');
 
 const groups = require('./routes/groups');
 
+const topics = require('./routes/topics');
+
+const documents = require('./routes/documents');
+
+
 //Port Number (for heroku)
-const port = process.env.PORT || 8080;
-// const port = 3000;
+// const port = process.env.PORT || 8080;
+const port = 3000;
 
 // CORS Middleware
 app.use(cors());
@@ -49,6 +54,10 @@ require('./config/passport')(passport);
 app.use('/users', users);
 
 app.use('/groups', groups);
+
+app.use('/topics', topics);
+
+app.use('/documents', documents);
 
 //Index Route
 app.get('/', (req, res) => {

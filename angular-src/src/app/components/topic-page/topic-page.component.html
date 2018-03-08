@@ -1,0 +1,13 @@
+<div *ngIf="topic">
+  <h2 class="page=header">Welcome to the Topic:</h2>
+    <ul class="list-group">
+      <li class="list-group-item">Name: {{topic.name}}</li>
+    </ul>
+</div>
+
+<h2 class="page=header">All documents:</h2>
+<div *ngFor="let document of documentNames">
+  <ul class="list-group">
+      <li class="list-group-item">  Name: {{document}}</li>
+    </ul>
+</div>
