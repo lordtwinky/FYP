@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
 const Topic = require('../models/topic');
+const Document1 = require('../models/document');
+
 
 //Create
 router.post('/createTopic', (req, res, next) => {
@@ -56,14 +58,38 @@ router.get('/topicList', (req, res) => {
 
 
   router.post('/grabTopic', (req, res, next) => {
+
     const topicID = req.body.topicID;
+
+    var documents = [];
+
     Topic.getTopicById(topicID, (err, topic) => {
       if(err) throw err;
        if(!topic){
            return res.json({success: false, msg: "Topic not found"})
        }
        else{
-        res.json({ success: true, topic: topic });
+
+        Document1.find({_id: topic.documents}, (err, documentsFound) => {
+          // Check if error was found or not
+          if (err) {
+            res.json({ success: false, message: err }); // Return error message
+          } 
+            // Check if groups were found in database
+          else if (!topic.documents) {
+              res.json({ success: false, message: 'No Dcouments found.' }); // Return error of no groups found
+          } 
+          else if(documentsFound == null){
+                  res.json({ success: false, message: 'Document not found.' });
+          } 
+          else {
+              for (i = 0; i < topic.documents.length; i++) { 
+                if(documentsFound[i] !== null && documentsFound[i] !== undefined)
+                documents.push(documentsFound[i]);
+              }
+              res.json({ success: true, topic: topic, documents: documents }); // Return success and groups array
+            }
+        })
        }
   });
 });

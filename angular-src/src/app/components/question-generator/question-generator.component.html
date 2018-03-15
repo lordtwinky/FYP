@@ -9,19 +9,19 @@
       <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="154" class="form-control" align="right"></textarea>
     </div>
     <div class="dropdownTopics">
-            <label for="topics"></label>
+            <label for="topic">Topic</label>
             <select [(ngModel)]="topic" name="topic" class="select-privacy" id="topic" required>
-              <option *ngFor="let topic of topics" [value]="topic.id">{{topic.name}}</option>
+              <option *ngFor="let topic of topics" [value]="topic._id">{{topic.name}}</option>
             </select>
+    </div>
+    <div class="docName">
+        <label>Document name</label>
+        <input type="text" [(ngModel)]="name" name="name" class="input-name">
     </div>
     <input type="submit" class="btn btn-primary" value="Submit" align="right"  >
     <!-- style="background-color:rgb(148, 148, 148); border: solid 1px rgb(0, 0, 0);" -->
   </form> 
 </div>
-
-
-
-
 <br> 
 
 <table>

@@ -67,7 +67,6 @@ export class GroupCreateComponent implements OnInit {
 
   onCreateGroup() {
     
-        
         const group = {
           name: this.name,
           admin: this.admin,

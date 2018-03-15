@@ -33,8 +33,8 @@ const documents = require('./routes/documents');
 
 
 //Port Number (for heroku)
-// const port = process.env.PORT || 8080;
-const port = 3000;
+const port = process.env.PORT || 8080;
+// const port = 3000;
 
 // CORS Middleware
 app.use(cors());

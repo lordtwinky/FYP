@@ -17,6 +17,13 @@ export class TopicPageComponent implements OnInit {
   topicID: string;
   topic: Object
   topicName: string;
+  documents;
+  whenQs = [];
+  whenAs = [];
+  whereQAs = [];
+  whoQAs = [];
+
+  test;
 
   constructor(
     private validateService: ValidateService,
@@ -38,10 +45,51 @@ export class TopicPageComponent implements OnInit {
 
     this.authService.getTopicPage(topicI).subscribe(data => {
       this.topic = data.topic;
+      this.documents = data.documents;
+      const test = [];
+      for(var i = 0; i< data.documents.length;i++){
+        for(var j=0; j<data.documents[i].whenQAs.length;j++){
+          const QA = []
+          QA.push(data.documents[i].whenQAs[j].question)
+          QA.push(data.documents[i].whenQAs[j].answer)
+          // this.tableRows.push(data.documents[i].whenQAs[j].question)
+          // this.whenAs.push(data.documents[i].whenQAs[j].answer)
+        }
+        // this.whenQAs.push(data.documents[i].whenQAs)
+        // this.whereQAs.push(data.documents[i].whereQAs)
+        // this.whoQAs.push(data.documents[i].whoQAs)
+        // this.test.push("hello")
+      }
+      
     });
-
+   // this.tableRows = this.whenQAs
+    // this.tableRows.push(this.whenQs, this.whenAs)
 
   }
+
+  // edit(z,i,docID){
+  //   this.documents[z].whenQAs[i].question = this.documents.whenQAs[i].question
+  //   console.log(docID)
+  // }
+
+  edit(i,docID){
+    console.log(docID)
+  }
+
+  // delete(index){
+  //   for(var a=0;a<this.documents.length;a++){
+  //     for(var b=0;b<this.documents[a].whenQAs.length;b++){
+  //       if(index == b){
+  //         this.documents[a].whenQAs.remove(this.documents[a].whenQAs[b])
+  //       }
+  //     }
+  //   }
+  // }
+
+  tap(){
+    console.log("docID")
+  }
+
   
 
 }

@@ -12,15 +12,18 @@ const DocumentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    questions: [{
-        type: String,
+    whoQAs: {
+        type: Object,
         required: false
-    }],
-    answers: [{
-        type: String,
+    },
+    whereQAs: {
+        type: Object,
         required: false
-    }]
-
+    },
+    whenQAs: {
+        type: Object,
+        required: false
+    }
 });
 
 

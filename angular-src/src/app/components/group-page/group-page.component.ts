@@ -20,6 +20,7 @@ export class GroupPageComponent implements OnInit {
   topicNames;
   tops;
   loggedInUserID;
+  joinBool = true;
 
   constructor(
     private validateService: ValidateService,
@@ -38,6 +39,7 @@ export class GroupPageComponent implements OnInit {
     const groupI = {
       groupID: this.groupID
     }
+    const groupIDd = this.groupID
 
     this.authService.getGroupPage(groupI).subscribe(data => {
       this.group = data.group;
@@ -54,6 +56,13 @@ export class GroupPageComponent implements OnInit {
 
     this.authService.getProfile().subscribe(profile => {
       this.loggedInUserID = profile.user._id;
+      const userGroups = profile.user.groups;
+      for(var i=0;i<userGroups.length;i++){
+        if(userGroups[i] == groupIDd){
+          this.joinBool = false;
+          
+        }
+      }
     },
     err => {
       console.log(err);

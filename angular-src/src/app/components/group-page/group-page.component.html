@@ -24,10 +24,11 @@
   <input type="submit" class="btn btn-primary" value="Submit">
 </form>
 
-
+<div *ngIf="joinBool==true">
 <h2 class="page-header">Join this group</h2>
 <form (submit)="joinGroup()">
   <div class="join-group">
       <input type="submit" class="btn btn-primary" value="Join">
   </div>
 </form>
+</div>

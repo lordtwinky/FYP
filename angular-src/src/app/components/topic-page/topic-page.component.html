@@ -1,13 +1,56 @@
 <div *ngIf="topic">
-  <h2 class="page=header">Welcome to the Topic:</h2>
-    <ul class="list-group">
-      <li class="list-group-item">Name: {{topic.name}}</li>
-    </ul>
+    <h2 class="page=header">{{topic.name}}</h2>
 </div>
 
-<h2 class="page=header">All documents:</h2>
-<div *ngFor="let document of documentNames">
-  <ul class="list-group">
-      <li class="list-group-item">  Name: {{document}}</li>
-    </ul>
-</div>
+<!-- <table>
+    <ng-container *ngFor="let document of documents">
+        <h3>When-based Questions</h3>
+        <form (submit)="edit(document._id)" id="generate" align="right">
+                <ng-container *ngFor="let whenQA of document.whenQAs">
+                        <tr>
+                            <td title="'Question'"><input type="text" [(ngModel)]="question" name="name" class="input-name" ></td>
+                            <td title="'Answer'">{{whenQA.answer}}</td>
+                            <td><input type="submit" class="btn btn-primary" value="Edit" align="right"></td>
+                        </tr>
+                    </ng-container>
+        </form> 
+
+        <h3>Where-based Questions</h3>
+        <ng-container *ngFor="let whereQA of document.whereQAs">
+            <tr>
+                <td title="'Question'">{{whereQA.question}}</td>
+                <td title="'Answer'">{{whereQA.answer}}</td>
+            </tr>
+        </ng-container>
+        <h3>Who-based Questions</h3>
+        <ng-container *ngFor="let whoQA of document.whoQAs">
+            <tr>
+                <td title="'Question'">{{whoQA.question}}</td>
+                <td title="'Answer'">{{whoQA.answer}}</td>
+            </tr>
+        </ng-container>
+    </ng-container>
+</table> -->
+
+<table>
+    <ng-container *ngFor="let document of documents; let z = index;">
+        <ng-container *ngFor="let whenQA of document.whenQAs;let i = index;">
+            <form (submit)="edit(index,document._id)" id="generate" align="right">
+                <tr>
+                    <td title="'Question'">
+                        <input type="text" [(ngModel)]="document.whenQAs[i].question" name="question" class="input-question" size="100">
+                    </td>
+                    <td>
+                        <input type="text" [(ngModel)]="document.whenQAs[i].answer" name="answer" class="input-answer" size="30">
+                    </td>
+                    <td>
+                        <input type="submit" class="btn btn-primary" value="Edit" align="right">
+                    </td>
+
+                </tr>
+            </form>
+        </ng-container>
+        <br>
+
+    </ng-container>
+</table>
