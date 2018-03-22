@@ -43,7 +43,7 @@ router.post('/create', (req, res, next) => {
                 res.json({ success: false, msg: 'Failed to add group' });
             }
             else {
-                res.json({ success: true, msg: 'group added' });
+                res.json({ success: true, groupID: newGroup._id, msg: 'group added' });
             }
         });
     });
@@ -172,25 +172,6 @@ router.get('/myGroupList', (req, res) => {
         }
         const groups = user.groups
         res.json({ success: true, groups:groups });
-
-        // for(var i=0;i<groups.length;i++){
-        //     Group.getGroupById(groupID, (err, group) => {
-        //         if (err) throw err;
-        //         if (!group) {
-        //             return res.json({ success: false, msg: "Group not found" })
-        //         }
-        //         else {
-        //             User.addGroupToUser(group, user, (err, group) => {
-        //                 if (err) {
-        //                     res.json({ success: false, msg: 'Failed to add group' });
-        //                 }
-        //                 else {
-        //                     res.json({ success: true, msg: 'group added' });
-        //                 }
-        //             });
-        //         }
-        //     });
-        // }
         
     });
 });

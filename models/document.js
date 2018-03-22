@@ -45,3 +45,8 @@ module.exports.addDocument = function (newDocument, callback) {
     newDocument.save(callback);
 }
 
+module.exports.editDocument = function (newDocument, callback) {
+    newDocument.set({name: 'x'});
+    newDocument.save(newDocument);
+}
+

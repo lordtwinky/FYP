@@ -1,56 +1,294 @@
 <div *ngIf="topic">
-    <h2 class="page=header">{{topic.name}}</h2>
+    <h1 class="page=header">Topic : {{topic.name}}</h1>
 </div>
 
-<!-- <table>
-    <ng-container *ngFor="let document of documents">
-        <h3>When-based Questions</h3>
-        <form (submit)="edit(document._id)" id="generate" align="right">
-                <ng-container *ngFor="let whenQA of document.whenQAs">
-                        <tr>
-                            <td title="'Question'"><input type="text" [(ngModel)]="question" name="name" class="input-name" ></td>
-                            <td title="'Answer'">{{whenQA.answer}}</td>
-                            <td><input type="submit" class="btn btn-primary" value="Edit" align="right"></td>
-                        </tr>
-                    </ng-container>
-        </form> 
+<!-- if the admin of the group is viewing the page -->
+<div *ngIf="admin == true">
 
-        <h3>Where-based Questions</h3>
-        <ng-container *ngFor="let whereQA of document.whereQAs">
-            <tr>
-                <td title="'Question'">{{whereQA.question}}</td>
-                <td title="'Answer'">{{whereQA.answer}}</td>
-            </tr>
+    <div ng-controller="EditableRowCtrl">
+
+        <ng-container *ngFor="let document of documents; let z = index;">
+
+            <br>
+
+            <h2>Document : {{document.name}}</h2>
+
+            <br>
+
+            <div>
+                <table class="table table-bordered table-hover table-condensed">
+                    <th colspan="4">
+                        <h3>When-based Questions</h3>
+                    </th>
+                    <tr style="font-weight: bold">
+                        <td style="width:0%" align="center">Checked</td>
+                        <td style="width:75%" align="center">Question</td>
+                        <td style="width:18%" align="center">Answer</td>
+                        <td style="width:0%" align="center">Edit</td>
+                    </tr>
+                    <tr *ngFor="let whenQA of document.whenQAs;let i = index;">
+
+                        <td>
+                            <div *ngIf="document.whenQAs[i].checked == true" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <button type="button" (click)="check(document._id, i, 'whenQA')" class="btn btn-success btn-md" id="checkUnCheck">
+                                    <div style="height:2em;border:1px">
+                                        <span class="align-middle glyphicon glyphicon-ok" vertical-align="bottom" display="inline-block"></span> Checked
+                                    </div>
+                                </button>
+                            </div>
+                            <div *ngIf="document.whenQAs[i].checked == false" class="col-md-1 text-center">
+                                <button type="button" (click)="check(document._id, i, 'whenQA')" class="btn btn-danger btn-md" id="checkUnCheck">
+                                    <span class="glyphicon glyphicon-remove"></span> Unchecked
+                                </button>
+                            </div>
+                        </td>
+
+                        <td>
+                            <input type="text" [(ngModel)]="document.whenQAs[i].question" name="question" class="input-question">
+                        </td>
+                        <td>
+                            <input type="text" [(ngModel)]="document.whenQAs[i].answer" name="answer" class="input-question">
+                        </td>
+                        <td style="white-space: nowrap">
+                            <form (submit)="editQA(document._id, i, whenQA.question, whenQA.answer, 'whenQA')" class="form-buttons form-inline">
+                                <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" id="saveDelete">
+                                    Save
+                                </button>
+                            </form>
+
+                            <button type="button" (click)="deleteQA(document._id, i, 'whenQA')" class="btn btn-default glyphicon glyphicon-remove" id="saveDelete">
+                                Delete
+                            </button>
+
+                        </td>
+                    </tr>
+                </table>
+                <button type="button" class="btn btn-default" (click)="addRow(document._id, 'whenQA')">Add row</button>
+            </div>
+
+            <br>
+
+            <div>
+                <table class="table table-bordered table-hover table-condensed">
+                    <th colspan="4">
+                        <h3>Where-based Questions</h3>
+                    </th>
+                    <tr style="font-weight: bold">
+                        <td style="width:0%" align="center">Checked</td>
+                        <td style="width:75%" align="center">Question</td>
+                        <td style="width:18%" align="center">Answer</td>
+                        <td style="width:0%" align="center">Edit</td>
+                    </tr>
+                    <tr *ngFor="let whereQA of document.whereQAs;let i = index;">
+
+                        <td>
+                            <div *ngIf="document.whereQAs[i].checked == true" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <button type="button" (click)="check(document._id, i, 'whereQA')" class="btn btn-success btn-md" id="checkUnCheck">
+                                    <div style="height:2em;border:1px">
+                                        <span class="align-middle glyphicon glyphicon-ok" vertical-align="bottom" display="inline-block"></span> Checked
+                                    </div>
+                                </button>
+                            </div>
+                            <div *ngIf="document.whereQAs[i].checked == false" class="col-md-1 text-center">
+                                <button type="button" (click)="check(document._id, i, 'whereQA')" class="btn btn-danger btn-md" id="checkUnCheck">
+                                    <span class="glyphicon glyphicon-remove"></span> Unchecked
+                                </button>
+                            </div>
+                        </td>
+
+                        <td>
+                            <input type="text" [(ngModel)]="document.whereQAs[i].question" name="question" class="input-question">
+                        </td>
+                        <td>
+                            <input type="text" [(ngModel)]="document.whereQAs[i].answer" name="answer" class="input-question">
+                        </td>
+                        <td style="white-space: nowrap">
+                            <form (submit)="editQA(document._id, i, whereQA.question, whereQA.answer, 'whereQA')" class="form-buttons form-inline">
+                                <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" id="saveDelete">
+                                    Save
+                                </button>
+                            </form>
+
+                            <button type="button" (click)="deleteQA(document._id, i, 'whereQA')" class="btn btn-default glyphicon glyphicon-remove" id="saveDelete">
+                                Delete
+                            </button>
+
+                        </td>
+                    </tr>
+                </table>
+                <button type="button" class="btn btn-default" (click)="addRow(document._id, 'whereQA')">Add row</button>
+            </div>
+
+            <br>
+
+            <div>
+                <table class="table table-bordered table-hover table-condensed">
+                    <th colspan="4">
+                        <h3>Who-based Questions</h3>
+                    </th>
+                    <tr style="font-weight: bold">
+                        <td style="width:0%" align="center">Checked</td>
+                        <td style="width:50%" align="center">Question</td>
+                        <td style="width:40%" align="center">Answer</td>
+                        <td style="width:0%" align="center">Edit</td>
+                    </tr>
+                    <tr *ngFor="let whoQA of document.whoQAs;let i = index;">
+
+                        <td>
+                            <div *ngIf="document.whoQAs[i].checked == true" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <button type="button" (click)="check(document._id, i, 'whoQA')" class="btn btn-success btn-md" id="checkUnCheck">
+                                    <div style="height:2em;border:1px">
+                                        <span class="align-middle glyphicon glyphicon-ok" vertical-align="bottom" display="inline-block"></span> Checked
+                                    </div>
+                                </button>
+                            </div>
+                            <div *ngIf="document.whoQAs[i].checked == false" class="col-md-1 text-center">
+                                <button type="button" (click)="check(document._id, i, 'whoQA')" class="btn btn-danger btn-md" id="checkUnCheck">
+                                    <span class="glyphicon glyphicon-remove"></span> Unchecked
+                                </button>
+                            </div>
+                        </td>
+
+                        <td>
+                            <input type="text" [(ngModel)]="document.whoQAs[i].question" name="question" class="input-question">
+                        </td>
+                        <td>
+                            <input type="text" [(ngModel)]="document.whoQAs[i].answer" name="answer" class="input-question">
+                        </td>
+                        <td style="white-space: nowrap">
+                            <form (submit)="editQA(document._id, i, whoQA.question, whoQA.answer, 'whoQA')" class="form-buttons form-inline">
+                                <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" id="saveDelete">
+                                    Save
+                                </button>
+                            </form>
+
+                            <button type="button" (click)="deleteQA(document._id, i, 'whoQA')" class="btn btn-default glyphicon glyphicon-remove" id="saveDelete">
+                                Delete
+                            </button>
+
+                        </td>
+                    </tr>
+                </table>
+                <button type="button" class="btn btn-default" (click)="addRow(document._id, 'whoQA')">Add row</button>
+            </div>
+
         </ng-container>
-        <h3>Who-based Questions</h3>
-        <ng-container *ngFor="let whoQA of document.whoQAs">
-            <tr>
-                <td title="'Question'">{{whoQA.question}}</td>
-                <td title="'Answer'">{{whoQA.answer}}</td>
-            </tr>
+
+    </div>
+
+    <br>
+
+</div>
+
+<div *ngIf="admin == false">
+    <div ng-controller="EditableRowCtrl">
+
+        <ng-container *ngFor="let document of documents; let z = index;">
+
+            <br>
+
+            <h2>Document : {{document.name}}</h2>
+
+            <br>
+
+            <div>
+                <table class="table table-bordered table-hover table-condensed">
+                    <th colspan="4">
+                        <h3>When-based Questions</h3>
+                    </th>
+                    <tr style="font-weight: bold">
+                        <td style="width:11%" align="center">Checked</td>
+                        <td style="width:75%" align="center">Question</td>
+                        <td style="width:18%" align="center">Answer</td>
+                    </tr>
+                    <tr *ngFor="let whenQA of document.whenQAs;let i = index;">
+
+                        <td>
+                            <div *ngIf="document.whenQAs[i].checked == true" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <div style="height:2em;border:1px">
+                                    <span class="align-middle glyphicon glyphicon-ok" vertical-align="bottom" display="inline-block"></span> Checked
+                                </div>
+                            </div>
+                            <div *ngIf="document.whenQAs[i].checked == false" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <span class="glyphicon glyphicon-remove" vertical-align="bottom" display="inline-block"></span> Unchecked
+                            </div>
+                        </td>
+
+                        <td>
+                            {{document.whenQAs[i].question}}
+                        </td>
+                        <td>
+                            {{document.whenQAs[i].answer}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table class="table table-bordered table-hover table-condensed">
+                    <th colspan="4">
+                        <h3>Where-based Questions</h3>
+                    </th>
+                    <tr style="font-weight: bold">
+                        <td style="width:11%" align="center">Checked</td>
+                        <td style="width:75%" align="center">Question</td>
+                        <td style="width:18%" align="center">Answer</td>
+                    </tr>
+                    <tr *ngFor="let whereQA of document.whereQAs;let i = index;">
+
+                        <td>
+                            <div *ngIf="document.whereQAs[i].checked == true" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <div style="height:2em;border:1px">
+                                    <span class="align-middle glyphicon glyphicon-ok" vertical-align="bottom" display="inline-block"></span> Checked
+                                </div>
+                            </div>
+                            <div *ngIf="document.whereQAs[i].checked == false" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <span class="glyphicon glyphicon-remove" vertical-align="bottom" display="inline-block"></span> Unchecked
+                            </div>
+                        </td>
+
+                        <td>
+                            {{document.whereQAs[i].question}}
+                        </td>
+                        <td>
+                            {{document.whereQAs[i].answer}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table class="table table-bordered table-hover table-condensed">
+                    <th colspan="4">
+                        <h3>Who-based Questions</h3>
+                    </th>
+                    <tr style="font-weight: bold">
+                        <td style="width:11%" align="center">Checked</td>
+                        <td style="width:50%" align="center">Question</td>
+                        <td style="width:50%" align="center">Answer</td>
+                    </tr>
+                    <tr *ngFor="let whoQA of document.whoQAs;let i = index;">
+
+                        <td>
+                            <div *ngIf="document.whoQAs[i].checked == true" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <div style="height:2em;border:1px">
+                                    <span class="align-middle glyphicon glyphicon-ok" vertical-align="bottom" display="inline-block"></span> Checked
+                                </div>
+                            </div>
+                            <div *ngIf="document.whoQAs[i].checked == false" id="wrapper" class="col-xs-2 col-md-7 col-lg-9 vcenter" vertical-align="baseline">
+                                <span class="glyphicon glyphicon-remove" vertical-align="bottom" display="inline-block"></span> Unchecked
+                            </div>
+                        </td>
+
+                        <td>
+                            {{document.whoQAs[i].question}}
+                        </td>
+                        <td>
+                            {{document.whoQAs[i].answer}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
         </ng-container>
-    </ng-container>
-</table> -->
 
-<table>
-    <ng-container *ngFor="let document of documents; let z = index;">
-        <ng-container *ngFor="let whenQA of document.whenQAs;let i = index;">
-            <form (submit)="edit(index,document._id)" id="generate" align="right">
-                <tr>
-                    <td title="'Question'">
-                        <input type="text" [(ngModel)]="document.whenQAs[i].question" name="question" class="input-question" size="100">
-                    </td>
-                    <td>
-                        <input type="text" [(ngModel)]="document.whenQAs[i].answer" name="answer" class="input-answer" size="30">
-                    </td>
-                    <td>
-                        <input type="submit" class="btn btn-primary" value="Edit" align="right">
-                    </td>
-
-                </tr>
-            </form>
-        </ng-container>
-        <br>
-
-    </ng-container>
-</table>
+    </div>
+</div>

@@ -25,6 +25,8 @@
     "apparatus": "0.0.9",
     "compromise": "^11.2.1",
     "core-js": "^2.4.1",
+    "drag-drop": "^2.13.2",
+    "dropzone": "^5.4.0",
     "formidable": "^1.1.1",
     "lapack": "^0.1.0",
     "net": "^1.0.2",

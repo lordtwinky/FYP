@@ -1,52 +1,84 @@
 <h2 align="center">Question Generation Tool</h2>
 
 <br>
+<div *ngIf="loggedIn == true">
+
+    <div class="well">
+        <form (submit)="onGenerateQuestions(loggedIn)" id="generate" align="right">
+            <div class="form-textArea">
+                <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="154" class="form-control" align="right"></textarea>
+            </div>
+            <div class="dropdownTopics">
+                <label for="topic">Topic</label>
+                <select [(ngModel)]="topic" name="topic" class="select-privacy" id="topic" required>
+                    <option *ngFor="let topic of topics" [value]="topic._id">{{topic.name}}</option>
+                </select>
+            </div>
+            <div class="docName">
+                <label>Document name</label>
+                <input type="text" [(ngModel)]="name" name="name" class="input-name">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Submit" align="right">
+        </form>
+    </div>
+    <br>
 
 
-<div class="well">
-  <form (submit)="onGenerateQuestions()" id="generate" align="right">
-    <div class="form-textArea">
-      <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="154" class="form-control" align="right"></textarea>
-    </div>
-    <div class="dropdownTopics">
-            <label for="topic">Topic</label>
-            <select [(ngModel)]="topic" name="topic" class="select-privacy" id="topic" required>
-              <option *ngFor="let topic of topics" [value]="topic._id">{{topic.name}}</option>
-            </select>
-    </div>
-    <div class="docName">
-        <label>Document name</label>
-        <input type="text" [(ngModel)]="name" name="name" class="input-name">
-    </div>
-    <input type="submit" class="btn btn-primary" value="Submit" align="right"  >
-    <!-- style="background-color:rgb(148, 148, 148); border: solid 1px rgb(0, 0, 0);" -->
-  </form> 
+
+
 </div>
-<br> 
+
+<div *ngIf="loggedIn == false">
+
+    <div class="well">
+        <form (submit)="onGenerateQuestions(loggedIn)" id="generate" align="right">
+            <div class="form-textArea">
+                <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="154" class="form-control" align="right"></textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Submit" align="right">
+        </form>
+    </div>
+    <br>
+</div>
 
 <table>
-    <div *ngIf="whoQ"><h3>Who-based Questions</h3></div>
+    <div *ngIf="whoQ">
+        <h3>Who-based Questions</h3>
+    </div>
     <ng-container *ngFor="let QAs of whoQAs">
-        <tr><td title="'Question'">{{QAs.question}}</td><td title="'Answer'">{{QAs.answer}}</td></tr>
+        <tr>
+            <td title="'Question'">{{QAs.question}}</td>
+            <td title="'Answer'">{{QAs.answer}}</td>
+        </tr>
     </ng-container>
 </table>
 
 <br>
 
 <table>
-    <div *ngIf="whereQ"><h3>Where-based Questions</h3></div>
+    <div *ngIf="whereQ">
+        <h3>Where-based Questions</h3>
+    </div>
     <ng-container *ngFor="let QAs of whereQAs">
-        <tr><td>{{QAs.question}}</td><td>{{QAs.answer}}</td></tr>
+        <tr>
+            <td>{{QAs.question}}</td>
+            <td>{{QAs.answer}}</td>
+        </tr>
     </ng-container>
 </table>
 
 <br>
 
 <table>
-    <div *ngIf="whenQ"><h3>When-based Questions</h3></div>
+    <div *ngIf="whenQ">
+        <h3>When-based Questions</h3>
+    </div>
     <ng-container *ngFor="let QAs of whenQAs">
-        <tr><td>{{QAs.question}}</td><td>{{QAs.answer}}</td></tr>
+        <tr>
+            <td>{{QAs.question}}</td>
+            <td>{{QAs.answer}}</td>
+        </tr>
     </ng-container>
 </table>
 
-<br> 
+<br>

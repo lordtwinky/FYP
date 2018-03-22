@@ -12,6 +12,8 @@ var http = require('http');
 var util = require('util');
 var https = require('https');
 
+var dragDrop = require('drag-drop')
+
 
 @Component({
   selector: 'app-question-generator',
@@ -30,19 +32,17 @@ export class QuestionGeneratorComponent implements OnInit {
   topicIDs;
   topics = [];
   groupNames: Array<String>;
-  loggedInUserID;
+  loggedIn = false;
   topic;
   name;
  
   constructor(private authService: AuthService, private router: Router,     private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
-    if (this.inputText !== undefined) {
-      this.onGenerateQuestions();
-    }
-    
+
     this.authService.getProfile().subscribe(profile => {
       const groupIDs = profile.user.groups
+      this.loggedIn = true
 
       for (var x = 0; x < groupIDs.length; x++) {
         const groupI = {
@@ -73,8 +73,8 @@ export class QuestionGeneratorComponent implements OnInit {
 
   }
 
-  onGenerateQuestions() {
-
+  onGenerateQuestions(loggedIn) {
+    if (this.inputText !== undefined) {
     this.authService.getQuestions(this.inputText).subscribe(data => {
 
       var dataArray = eval('(' + data + ')');
@@ -86,10 +86,13 @@ export class QuestionGeneratorComponent implements OnInit {
       for (var who = 0; who < whoQAarray.length; who++) {
         var whoQ = whoQAarray[who][0]
         var whoA = whoQAarray[who][1]
+        var whoI = whoQAarray[who][2]
 
         const whoQA = {
           question: whoQ,
-          answer: whoA
+          answer: whoA,
+          index: whoI,
+          checked: false
         }
 
         this.whoQAs.push(whoQA)
@@ -99,10 +102,13 @@ export class QuestionGeneratorComponent implements OnInit {
       for (var where = 0; where < whereQAarray.length; where++) {
         var whereQ = whereQAarray[where][0]
         var whereA = whereQAarray[where][1]
+        var whereI = whereQAarray[where][2]
 
         const whereQA = {
           question: whereQ,
-          answer: whereA
+          answer: whereA,
+          index: whereI,
+          checked: false
         }
 
         this.whereQAs.push(whereQA)
@@ -112,41 +118,48 @@ export class QuestionGeneratorComponent implements OnInit {
       for (var when = 0; when < whenQAarray.length; when++) {
         var whenQ = whenQAarray[when][0]
         var whenA = whenQAarray[when][1]
+        var whenI = whenQAarray[when][2]
 
         const whenQA = {
           question: whenQ,
-          answer: whenA
+          answer: whenA,
+          index: whenI,
+          checked: false
         }
 
         this.whenQAs.push(whenQA)
         this.whenQ = "e"
       }
       
-      // if the user has chosen a topic
-
-      if(this.topic != undefined){
-        const document = {
-          name: this.name,
-          text: this.inputText,
-          whoQAs: this.whoQAs,
-          whereQAs: this.whereQAs,
-          whenQAs: this.whenQAs,
-          topicID: this.topic
-        }
-
-        this.authService.createDocument(document).subscribe(data => {
-          if (data.success) {
-            this.flashMessage.show('Added document successfully', { cssClass: 'alert-success', timeout: 3000 });
-          } else {
-            this.flashMessage.show('Error adding document to topic', { cssClass: 'alert-danger', timeout: 3000 });
+      if(loggedIn == true){
+        if(this.topic != undefined){
+          const document = {
+            name: this.name,
+            text: this.inputText,
+            whoQAs: this.whoQAs,
+            whereQAs: this.whereQAs,
+            whenQAs: this.whenQAs,
+            topicID: this.topic
           }
-        });
+  
+          this.authService.createDocument(document).subscribe(data => {
+            if (data.success) {
+              this.flashMessage.show('Added document successfully', { cssClass: 'alert-success', timeout: 3000 });
+            } else {
+              this.flashMessage.show('Error adding document to topic', { cssClass: 'alert-danger', timeout: 3000 });
+            }
+          });
+        }
       }
 
     });
   }
 
 
+}
 
+upload(file){
+  console.log(file)
+}
 
 }

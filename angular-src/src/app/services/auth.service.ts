@@ -14,6 +14,28 @@ export class AuthService {
 
   constructor(private http:Http) { }
 
+  storeUserData(token, user){
+    localStorage.setItem('id_token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.authToken = token;
+    this.user = user;
+  }
+
+  loadToken(){
+    const token = localStorage.getItem('id_token');
+    this.authToken = token;
+  }
+
+  loggedIn(){
+    return tokenNotExpired('id_token');
+  }
+
+  logout(){
+    this.authToken = null;
+    this.user = null;
+    localStorage.clear();
+  }
+
   registerUser(user){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -50,41 +72,15 @@ export class AuthService {
 
   getallGroups(){
     let headers = new Headers();
-    //headers.append('Content-Type', 'application/json');
     // return this.http.get('http://localhost:3000/groups/groupList', {headers: headers})
     return this.http.get('groups/groupList', {headers: headers})
     .map(res => res.json());
   }
 
-
-  storeUserData(token, user){
-    localStorage.setItem('id_token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    this.authToken = token;
-    this.user = user;
-  }
-
-  loadToken(){
-    const token = localStorage.getItem('id_token');
-    this.authToken = token;
-  }
-
-  loggedIn(){
-    return tokenNotExpired('id_token');
-  }
-
-  logout(){
-    this.authToken = null;
-    this.user = null;
-    localStorage.clear();
-  }
-
   getQuestions(text){
-
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:8000/', text, {headers: headers})
-    //return this.http.get('groups/myGroupList', {headers: headers})
     .map(res => res.text());
 
   }
@@ -93,7 +89,7 @@ export class AuthService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // return this.http.post('http://localhost:3000/topics/createTopic', topic, {headers: headers})
-    return this.http.post('groups/create', topic, {headers: headers})
+    return this.http.post('topics/createTopic', topic, {headers: headers})
     .map(res => res.json());
   } 
 
@@ -101,13 +97,12 @@ export class AuthService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // return this.http.post('http://localhost:3000/documents/createDocument', document, {headers: headers})
-    return this.http.post('groups/create', document, {headers: headers})
+    return this.http.post('documents/createDocument', document, {headers: headers})
     .map(res => res.json());
   } 
 
   getGroupPage(groupID){
     let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
     // return this.http.post('http://localhost:3000/groups/grabGroup', groupID, {headers: headers})
     return this.http.post('groups/grabGroup', groupID, {headers: headers})
     .map(res => res.json());
@@ -115,29 +110,45 @@ export class AuthService {
 
   getTopicPage(topicID){
     let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    //return this.http.post('http://localhost:3000/topics/grabTopic', topicID, {headers: headers})
+    // return this.http.post('http://localhost:3000/topics/grabTopic', topicID, {headers: headers})
     return this.http.post('topics/grabTopic', topicID, {headers: headers})
     .map(res => res.json());
   }
 
   joinGroup(userGroupIDs){
     let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    //return this.http.post('http://localhost:3000/groups/joinGroup', userGroupIDs, {headers: headers})
+    // return this.http.post('http://localhost:3000/groups/joinGroup', userGroupIDs, {headers: headers})
     return this.http.post('groups/joinGroup', userGroupIDs, {headers: headers})
     .map(res => res.json());
   }
 
-  updateDocument(docInfo){
+  updateDocumentEdit(docInfo){
     let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    //return this.http.put('http://localhost:3000/documents/updateDocument', docInfo, {headers: headers})
-    return this.http.put('documents/updateDocument', docInfo, {headers: headers})
+    // return this.http.put('http://localhost:3000/documents/updateDocumentEdit', docInfo, {headers: headers})
+    return this.http.put('documents/updateDocumentEdit', docInfo, {headers: headers})
     .map(res => res.json());
-    
   }
 
+  updateDocumentDelete(docInfo){
+    let headers = new Headers();
+    // return this.http.put('http://localhost:3000/documents/updateDocumentDelete', docInfo, {headers: headers})
+    return this.http.put('documents/updateDocumentDelete', docInfo, {headers: headers})
+    .map(res => res.json());
+  }
+
+  updateDocumentAdd(docInfo){
+    let headers = new Headers();
+    // return this.http.put('http://localhost:3000/documents/updateDocumentAdd', docInfo, {headers: headers})
+    return this.http.put('documents/updateDocumentAdd', docInfo, {headers: headers})
+    .map(res => res.json());
+  }
+
+  findGroupOfTopic(topicID){
+    let headers = new Headers();
+    // return this.http.post('http://localhost:3000/topics/getGroupofTopic', topicID, {headers: headers})
+    return this.http.put('topics/getGroupofTopic', topicID, {headers: headers})
+    .map(res => res.json());
+  }
 
   
   

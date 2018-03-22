@@ -45,25 +45,6 @@ export class GroupsComponent implements OnInit {
 
   }
 
-
-  onCreateGroup() {
-
-    
-    const group = {
-      name: this.name,
-      admin: this.admin
-    }
-
-    this.authService.createGroup(group).subscribe(data => {
-      if (data.success) {
-        this.flashMessage.show('Group created successfully', { cssClass: 'alert-success', timeout: 3000 });
-      } else {
-        this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 });
-      }
-    });
-
-  }
-
   getGroups() {
     this.authService.getallGroups().subscribe(data => {
       this.groupNames = data.groups;

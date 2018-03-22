@@ -83,14 +83,19 @@ export class GroupPageComponent implements OnInit {
     this.authService.createTopic(topic).subscribe(data => {
       if (data.success) {
         this.flashMessage.show('Topic created successfully', { cssClass: 'alert-success', timeout: 3000 });
+        this.topics.push(data.topic)
       } else {
         this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 });
       }
     });
 
+    this.name = ""
+
   }
 
   joinGroup(){
+
+    this.joinBool = false
 
     const userGroupIDs = {
       groupID: this.groupID,

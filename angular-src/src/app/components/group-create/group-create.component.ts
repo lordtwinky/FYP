@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-group-create',
@@ -21,7 +22,8 @@ export class GroupCreateComponent implements OnInit {
 
   constructor(
     private flashMessage: FlashMessagesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -75,16 +77,18 @@ export class GroupCreateComponent implements OnInit {
           school: this.school,
           organization: this.organization,
           fields: this.fieldsSelected,
-
         }
     
         this.authService.createGroup(group).subscribe(data => {
           if (data.success) {
             this.flashMessage.show('Group created successfully', { cssClass: 'alert-success', timeout: 3000 });
+            this.router.navigate(['/GroupPage', data.groupID]);
           } else {
             this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 });
           }
         });
+
+        
     
       }
 

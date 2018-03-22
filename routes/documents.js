@@ -64,49 +64,202 @@ router.get('/documentList', (req, res) => {
   })
 });
 
-//Modify
-router.put('/updateDocument', (req, res, next) => {
+//Modify document (edit questions/answers)
+router.put('/updateDocumentEdit', (req, res, next) => {
   const documentID = req.body.documentID;
   const type = req.body.type;
   const index = req.body.index;
   const editText = req.body.editText;
-  const qa = req.body.editText;
   Document1.getDocumentById(documentID, (err, document) => {
-      if(err) throw err;
-       if(!group){
-           return res.json({success: false, msg: 'Group not found: '})
-       }
-       if(type == "whoQA"){
-         if(qa == "q"){
-          document.whoQAs[index].question = editText
-         }
-         else{
-          document.whoQAs[index].answer = editText
-         }
-       }
-       else if(type == "whereQA"){
-        if(qa == "q"){
-          document.whereQAs[index].question = editText
-         }
-         else{
-          document.whereQAs[index].answer = editText
-         }
-       }
-       else if(type == "whenQA"){
-        if(qa == "q"){
-          document.whenQAs[index].question = editText
-         }
-         else{
-          document.whenQAs[index].answer = editText
-         }
-       }
-      
+
+    if (!document) {
+      return res.json({ success: false, msg: 'Document not found with id: ' + documentID })
+    }
+    if(editText == null){
+      if (type == "whoQA") {
+        if(document.whoQAs[index].checked == true){
+          document.whoQAs[index].checked = false
+        }
+        else{
+          document.whoQAs[index].checked = true
+        }
+      }
+      else if (type == "whereQA") {
+        if(document.whereQAs[index].checked == true){
+        document.whereQAs[index].checked = false
+        }
+        else{
+          document.whereQAs[index].checked = true
+        }
+      }
+      else if (type == "whenQA") {
+        if(document.whenQAs[index].checked == true){
+        document.whenQAs[index].checked = false
+        }
+        else{
+          document.whenQAs[index].checked = true
+        }
+      }
+    }
+    else{
+      if (type == "whoQA") {
+        document.whoQAs[index].question = editText[0]
+        document.whoQAs[index].answer = editText[1]
+        document.whoQAs[index].checked = true
+      }
+      else if (type == "whereQA") {
+        document.whereQAs[index].question = editText[0]
+        document.whereQAs[index].answer = editText[1]
+        document.whereQAs[index].checked = true
+      }
+      else if (type == "whenQA") {
+        document.whenQAs[index].question = editText[0]
+        document.whenQAs[index].answer = editText[1]
+        document.whenQAs[index].checked = true
+      }
+    }
+
+    Document1.findOneAndUpdate({ _id: documentID },
+      {
+        $set: {
+          whoQAs: document.whoQAs,
+          whereQAs: document.whereQAs,
+          whenQAs: document.whenQAs
+        }
+      }, (err, newDocument) => {
+        if (err)
+          res.json({ success: false, err: err, msg: 'Failed to update document' });
+        else {
+          res.json({ success: true, msg: 'Document Updated'});
+        }
+      }
+
+    );
+
   });
-  
-  
+
+});
+
+//Modify document (delete questions/answers)
+router.put('/updateDocumentDelete', (req, res, next) => {
+  const documentID = req.body.documentID;
+  const type = req.body.type;
+  const index = req.body.index;
+  Document1.getDocumentById(documentID, (err, document) => {
+
+    if (type == "whenQA") {
+
+      var removeitem = document.whenQAs[index].question
+      Document1.findOneAndUpdate({ _id: documentID }, { $pull: { whenQAs: { "question": removeitem } } }, function (err, deleteDoc) {
+        if (err)
+          throw err;
+        if (!deleteDoc) {
+          return res.json({ success: false, msg: 'Document with id ' + documentID + ' not found' })
+        }
+        else {
+          return res.json({ success: true, msg: 'Document deleted successfully ' })
+        }
+      });
+
+    }
+
+    if (type == "whereQA") {
+
+      var removeitem = document.whereQAs[index].question
+      Document1.findOneAndUpdate({ _id: documentID }, { $pull: { whereQAs: { "question": removeitem } } }, function (err, deleteDoc) {
+        if (err)
+          throw err;
+        if (!deleteDoc) {
+          return res.json({ success: false, msg: 'Document with id ' + documentID + ' not found' })
+        }
+        else {
+          return res.json({ success: true, msg: 'Document deleted successfully ' })
+        }
+      });
+
+    }
+
+    if (type == "whoQA") {
+
+      var removeitem = document.whoQAs[index].question
+      Document1.findOneAndUpdate({ _id: documentID }, { $pull: { whoQAs: { "question": removeitem } } }, function (err, deleteDoc) {
+        if (err)
+          throw err;
+        if (!deleteDoc) {
+          return res.json({ success: false, msg: 'Document with id ' + documentID + ' not found' })
+        }
+        else {
+          return res.json({ success: true, msg: 'Document deleted successfully ' })
+        }
+      });
+
+    }
+
+  });
+
 });
 
 
+//Modify document (add questions/answers)
+router.put('/updateDocumentAdd', (req, res, next) => {
+  const documentID = req.body.documentID;
+  const type = req.body.type;
+  const checked = req.body.checked;
+  Document1.getDocumentById(documentID, (err, document) => {
+
+    var newQA = {
+      question: "",
+      answer: "",
+      checked: false
+    }
+
+    if (type == "whenQA") {
+
+      Document1.findOneAndUpdate({ _id: documentID }, { $push: { whenQAs: newQA } }, function (err, newDoc) {
+        if (err)
+          throw err;
+        if (!newDoc) {
+          return res.json({ success: false, msg: 'Document with id ' + documentID + ' not found' })
+        }
+        else {
+          return res.json({ success: true, msg: 'Document added successfully ' })
+        }
+      });
+
+    }
+
+    else if (type == "whereQA") {
+
+      Document1.findOneAndUpdate({ _id: documentID }, { $push: { whereQAs: newQA } }, function (err, newDoc) {
+        if (err)
+          throw err;
+        if (!newDoc) {
+          return res.json({ success: false, msg: 'Document with id ' + documentID + ' not found' })
+        }
+        else {
+          return res.json({ success: true, msg: 'Document added successfully ' })
+        }
+      });
+
+    }
+    else if (type == "whoQA") {
+
+      Document1.findOneAndUpdate({ _id: documentID }, { $push: { whoQAs: newQA } }, function (err, newDoc) {
+        if (err)
+          throw err;
+        if (!newDoc) {
+          return res.json({ success: false, msg: 'Document with id ' + documentID + ' not found' })
+        }
+        else {
+          return res.json({ success: true, msg: 'Document added successfully ' })
+        }
+      });
+
+    }
+
+  });
+
+});
 
 //export the router
 module.exports = router;

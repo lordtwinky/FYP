@@ -22,8 +22,8 @@ export class TopicPageComponent implements OnInit {
   whenAs = [];
   whereQAs = [];
   whoQAs = [];
+  admin = false;
 
-  test;
 
   constructor(
     private validateService: ValidateService,
@@ -35,6 +35,7 @@ export class TopicPageComponent implements OnInit {
 
   ngOnInit() {
 
+    //we get the id of the topic that has been clicked on to navigate to this page
     this.route.params.subscribe(params => {
       this.topicID = params['id'];
     });
@@ -43,53 +44,204 @@ export class TopicPageComponent implements OnInit {
       topicID: this.topicID
     }
 
+    //with the id, we get the topic object, along with all of its associated documents
     this.authService.getTopicPage(topicI).subscribe(data => {
       this.topic = data.topic;
       this.documents = data.documents;
-      const test = [];
-      for(var i = 0; i< data.documents.length;i++){
-        for(var j=0; j<data.documents[i].whenQAs.length;j++){
-          const QA = []
-          QA.push(data.documents[i].whenQAs[j].question)
-          QA.push(data.documents[i].whenQAs[j].answer)
-          // this.tableRows.push(data.documents[i].whenQAs[j].question)
-          // this.whenAs.push(data.documents[i].whenQAs[j].answer)
-        }
-        // this.whenQAs.push(data.documents[i].whenQAs)
-        // this.whereQAs.push(data.documents[i].whereQAs)
-        // this.whoQAs.push(data.documents[i].whoQAs)
-        // this.test.push("hello")
-      }
-      
     });
-   // this.tableRows = this.whenQAs
-    // this.tableRows.push(this.whenQs, this.whenAs)
+
+    //We now check to see whether the user is the admin (by first viewing the group that the topic belongs to)
+    this.authService.findGroupOfTopic(topicI).subscribe(data => {
+      //we get the user that is logged in 
+      this.authService.getProfile().subscribe(profile => {
+        if (data.foundGroupAdmin == profile.user._id) {
+          this.admin = true
+        }
+      },
+        err => {
+          return false;
+        });
+
+
+    });
+
+    
 
   }
 
-  // edit(z,i,docID){
-  //   this.documents[z].whenQAs[i].question = this.documents.whenQAs[i].question
-  //   console.log(docID)
-  // }
+  editQA(docID, i, question, answer, type) {
 
-  edit(i,docID){
-    console.log(docID)
+    //we edit the checked value in the front-end
+    
+    for (var docs = 0; docs < this.documents.length; docs++) {
+      if (this.documents[docs]._id == docID) {
+        if (type == "whenQA") {
+          this.documents[docs].whenQAs[i].checked=true;
+        }
+        else if (type == "whereQA") {
+          this.documents[docs].whereQAs[i].checked=true;
+        }
+        else if (type == "whoQA") {
+          this.documents[docs].whoQAs[i].checked=true;
+        }
+      }
+    }
+
+    //we edit the QA in the back-end
+
+    const editTextArray = [];
+    editTextArray.push(question, answer)
+
+    const updatedDoc = {
+      documentID: docID,
+      type: type,
+      index: i,
+      editText: editTextArray
+    }
+
+    this.authService.updateDocumentEdit(updatedDoc).subscribe(data => {
+      if (data.success) {
+     //   this.flashMessage.show('Update successful', { cssClass: 'alert-success', timeout: 3000 });
+      } else {
+        console.log(data.foundGroup._id)
+      }
+    });
+
   }
 
-  // delete(index){
-  //   for(var a=0;a<this.documents.length;a++){
-  //     for(var b=0;b<this.documents[a].whenQAs.length;b++){
-  //       if(index == b){
-  //         this.documents[a].whenQAs.remove(this.documents[a].whenQAs[b])
-  //       }
-  //     }
-  //   }
-  // }
+  deleteQA(docID, i, type) {
 
-  tap(){
-    console.log("docID")
+    //Delete in the displayed table (front-end)
+
+    for (var docs = 0; docs < this.documents.length; docs++) {
+      if (this.documents[docs]._id == docID) {
+        if (type == "whenQA") {
+          this.documents[docs].whenQAs.splice(i, 1);
+        }
+        else if (type == "whereQA") {
+          this.documents[docs].whereQAs.splice(i, 1);
+        }
+        else if (type == "whoQA") {
+          this.documents[docs].whoQAs.splice(i, 1);
+        }
+      }
+    }
+
+
+    //Delete in the database (back-end)
+
+    const updatedDoc = {
+      documentID: docID,
+      type: type,
+      index: i
+    }
+
+    this.authService.updateDocumentDelete(updatedDoc).subscribe(data => {
+      if (data.success) {
+      //  this.flashMessage.show('Deleted row successfully', { cssClass: 'alert-success', timeout: 3000 });
+      } else {
+        console.log(data)
+      }
+    });
+
   }
 
-  
+  check(docID, i, type) {
+
+    //front-end 
+
+    for (var docs = 0; docs < this.documents.length; docs++) {
+      if (this.documents[docs]._id == docID) {
+        if (type == "whenQA") {
+          if(this.documents[docs].whenQAs[i].checked==false){
+            this.documents[docs].whenQAs[i].checked=true;
+          }
+          else{
+            this.documents[docs].whenQAs[i].checked=false;
+          }
+        }
+        else if (type == "whereQA") {
+          if(this.documents[docs].whereQAs[i].checked==false){
+            this.documents[docs].whereQAs[i].checked=true;
+          }
+          else{
+            this.documents[docs].whereQAs[i].checked=false;
+          }
+        }
+        else if (type == "whoQA") {
+          if(this.documents[docs].whoQAs[i].checked==false){
+            this.documents[docs].whoQAs[i].checked=true;
+          }
+          else{
+            this.documents[docs].whoQAs[i].checked=false;
+          }
+        }
+      }
+    }
+
+    //back-end
+
+    const updatedDoc = {
+      documentID: docID,
+      type: type,
+      index: i,
+      editText: null
+    }
+
+    this.authService.updateDocumentEdit(updatedDoc).subscribe(data => {
+      if (data.success) {
+        //this.flashMessage.show('Update successful', { cssClass: 'alert-success', timeout: 3000 });
+      } else {
+        console.log(data.foundGroup._id)
+      }
+    });
+  }
+
+  addRow(docID, type) {
+
+    //add row in displayed table (front-end)
+
+    const newRow = {
+      question: "",
+      answer: "",
+      checked: false
+    }
+
+    for (var docs = 0; docs < this.documents.length; docs++) {
+      if (this.documents[docs]._id == docID) {
+        if (type == "whenQA") {
+          this.documents[docs].whenQAs.push(newRow)
+        }
+        else if (type == "whoQA") {
+          this.documents[docs].whoQAs.push(newRow)
+        }
+        else if (type == "whereQA") {
+          this.documents[docs].whereQAs.push(newRow)
+        }
+      }
+    }
+
+    //add row (Question+Answer) in backend
+
+    const updatedDoc = {
+      documentID: docID,
+      type: type,
+      checked: false
+    }
+
+    this.authService.updateDocumentAdd(updatedDoc).subscribe(data => {
+      if (data.success) {
+       // this.flashMessage.show('Added row successfully', { cssClass: 'alert-success', timeout: 3000 });
+      } else {
+        console.log(data)
+      }
+    });
+
+
+  }
+
+
+
+
 
 }
