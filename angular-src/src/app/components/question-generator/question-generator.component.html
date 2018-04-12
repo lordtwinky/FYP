@@ -1,3 +1,8 @@
+<script src="docxtemplater.js"></script>
+<script src="jszip.js"></script>
+<script src="vendor/file-saver.min.js"></script>
+<script src="vendor/jszip-utils.js"></script>
+
 <h2 align="center">Question Generation Tool</h2>
 
 <br>
@@ -23,6 +28,15 @@
     </div>
     <br>
 
+    <h2>Drop File</h2>
+    <div class="Block">
+        <label id="lbl">Code </label>
+        <input type='file' (change)="fileChanged($event)">
+
+    </div>
+    <button (click)="uploadDocument()">View contents of file</button>
+
+   
 
 
 

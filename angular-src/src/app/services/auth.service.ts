@@ -80,7 +80,8 @@ export class AuthService {
   getQuestions(text){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8000/', text, {headers: headers})
+    // return this.http.post('http://localhost:8000/', text, {headers: headers})
+    return this.http.get('groups/myGroupList', {headers: headers})
     .map(res => res.text());
 
   }
@@ -89,7 +90,7 @@ export class AuthService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // return this.http.post('http://localhost:3000/topics/createTopic', topic, {headers: headers})
-    return this.http.post('topics/createTopic', topic, {headers: headers})
+    return this.http.post('groups/create', topic, {headers: headers})
     .map(res => res.json());
   } 
 
@@ -97,7 +98,7 @@ export class AuthService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // return this.http.post('http://localhost:3000/documents/createDocument', document, {headers: headers})
-    return this.http.post('documents/createDocument', document, {headers: headers})
+    return this.http.post('groups/create', document, {headers: headers})
     .map(res => res.json());
   } 
 
@@ -125,28 +126,28 @@ export class AuthService {
   updateDocumentEdit(docInfo){
     let headers = new Headers();
     // return this.http.put('http://localhost:3000/documents/updateDocumentEdit', docInfo, {headers: headers})
-    return this.http.put('documents/updateDocumentEdit', docInfo, {headers: headers})
+    return this.http.put('documents/updateDocument', docInfo, {headers: headers})
     .map(res => res.json());
   }
 
   updateDocumentDelete(docInfo){
     let headers = new Headers();
     // return this.http.put('http://localhost:3000/documents/updateDocumentDelete', docInfo, {headers: headers})
-    return this.http.put('documents/updateDocumentDelete', docInfo, {headers: headers})
+    return this.http.put('documents/updateDocument', docInfo, {headers: headers})
     .map(res => res.json());
   }
 
   updateDocumentAdd(docInfo){
     let headers = new Headers();
     // return this.http.put('http://localhost:3000/documents/updateDocumentAdd', docInfo, {headers: headers})
-    return this.http.put('documents/updateDocumentAdd', docInfo, {headers: headers})
+    return this.http.put('documents/updateDocument', docInfo, {headers: headers})
     .map(res => res.json());
   }
 
   findGroupOfTopic(topicID){
     let headers = new Headers();
     // return this.http.post('http://localhost:3000/topics/getGroupofTopic', topicID, {headers: headers})
-    return this.http.put('topics/getGroupofTopic', topicID, {headers: headers})
+    return this.http.post('topics/getGroupofTopic', topicID, {headers: headers})
     .map(res => res.json());
   }
 

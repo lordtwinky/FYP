@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 
+
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
@@ -22,6 +23,8 @@ import { GroupPageComponent } from './components/group-page/group-page.component
 import { TopicPageComponent } from './components/topic-page/topic-page.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { GroupCreateComponent } from './components/group-create/group-create.component';
+
+
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
