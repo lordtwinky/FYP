@@ -1,98 +1,93 @@
-<script src="docxtemplater.js"></script>
-<script src="jszip.js"></script>
-<script src="vendor/file-saver.min.js"></script>
-<script src="vendor/jszip-utils.js"></script>
-
 <h2 align="center">Question Generation Tool</h2>
+<br>
+<h4 align="center">Enter in the text you would like to generate questions and answers for by either choosing a .docx file or .txt, or simply
+    copy pasting in text.</h4>
+<br>
+
+
+
+    <div class="banner" align="center">
+        <label class="custom-file-upload" center="middle"> Click to choose a .docx or .txt file
+            <input id="document" type="file" (change)="handleFileSelect($event)" />
+        </label>
+    </div>
+
+    <br>
+
+    <div>
+        <form (submit)="onGenerateQuestions()" id="generate" align="right">
+            <div class="form-textArea">
+                <textarea [(ngModel)]="inputText" name="inputText" rows="32" cols="154" class="form-control" align="right"></textarea>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div align="center">
+        <button (click)=onGenerateQuestions() class="button buttonCustom">Generate questions and answers</button>
+    </div>
 
 <br>
-<div *ngIf="loggedIn == true">
+<br>
+    <table>
+        <div *ngIf="whoQ">
+            <h3>Who-based Questions</h3>
+        </div>
+        <ng-container *ngFor="let QAs of whoQAs">
+            <tr>
+                <td title="'Question'">{{QAs.question}}</td>
+                <td title="'Answer'">{{QAs.answer}}</td>
+            </tr>
+        </ng-container>
+    </table>
 
-    <div class="well">
-        <form (submit)="onGenerateQuestions(loggedIn)" id="generate" align="right">
-            <div class="form-textArea">
-                <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="154" class="form-control" align="right"></textarea>
-            </div>
-            <div class="dropdownTopics">
-                <label for="topic">Topic</label>
-                <select [(ngModel)]="topic" name="topic" class="select-privacy" id="topic" required>
-                    <option *ngFor="let topic of topics" [value]="topic._id">{{topic.name}}</option>
-                </select>
-            </div>
-            <div class="docName">
-                <label>Document name</label>
+    <br>
+
+    <table>
+        <div *ngIf="whereQ">
+            <h3>Where-based Questions</h3>
+        </div>
+        <ng-container *ngFor="let QAs of whereQAs">
+            <tr>
+                <td>{{QAs.question}}</td>
+                <td>{{QAs.answer}}</td>
+            </tr>
+        </ng-container>
+    </table>
+
+    <br>
+
+    <table>
+        <div *ngIf="whenQ">
+            <h3>When-based Questions</h3>
+        </div>
+        <ng-container *ngFor="let QAs of whenQAs">
+            <tr>
+                <td>{{QAs.question}}</td>
+                <td>{{QAs.answer}}</td>
+            </tr>
+        </ng-container>
+    </table>
+
+    <br>
+    <div *ngIf="loggedIn == true">
+    <div *ngIf="whoQ || whereQ || whenQ">
+        <br>
+        <h3 >Upload the generated questions and answers to a topic</h3>
+        <br>
+        <div class="docName">
+                <label>Give this document a name: </label>
                 <input type="text" [(ngModel)]="name" name="name" class="input-name">
             </div>
-            <input type="submit" class="btn btn-primary" value="Submit" align="right">
-        </form>
+        <div class="dropdownTopics">
+            <label for="topic">Choose which topic you want to upload it to:</label>
+            <select [(ngModel)]="topic" name="topic" class="select-privacy" id="topic" required>
+                <option *ngFor="let topic of topics" [value]="topic._id">{{topic.name}}</option>
+            </select>
+        </div>
+        <br>
+        <button (click)=UploadtoTopic() class="button buttonCustom">Upload</button>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
-    <br>
-
-    <h2>Drop File</h2>
-    <div class="Block">
-        <label id="lbl">Code </label>
-        <input type='file' (change)="fileChanged($event)">
-
-    </div>
-    <button (click)="uploadDocument()">View contents of file</button>
-
-   
-
-
-
-</div>
-
-<div *ngIf="loggedIn == false">
-
-    <div class="well">
-        <form (submit)="onGenerateQuestions(loggedIn)" id="generate" align="right">
-            <div class="form-textArea">
-                <textarea [(ngModel)]="inputText" name="inputText" rows="35" cols="154" class="form-control" align="right"></textarea>
-            </div>
-            <input type="submit" class="btn btn-primary" value="Submit" align="right">
-        </form>
-    </div>
-    <br>
-</div>
-
-<table>
-    <div *ngIf="whoQ">
-        <h3>Who-based Questions</h3>
-    </div>
-    <ng-container *ngFor="let QAs of whoQAs">
-        <tr>
-            <td title="'Question'">{{QAs.question}}</td>
-            <td title="'Answer'">{{QAs.answer}}</td>
-        </tr>
-    </ng-container>
-</table>
-
-<br>
-
-<table>
-    <div *ngIf="whereQ">
-        <h3>Where-based Questions</h3>
-    </div>
-    <ng-container *ngFor="let QAs of whereQAs">
-        <tr>
-            <td>{{QAs.question}}</td>
-            <td>{{QAs.answer}}</td>
-        </tr>
-    </ng-container>
-</table>
-
-<br>
-
-<table>
-    <div *ngIf="whenQ">
-        <h3>When-based Questions</h3>
-    </div>
-    <ng-container *ngFor="let QAs of whenQAs">
-        <tr>
-            <td>{{QAs.question}}</td>
-            <td>{{QAs.answer}}</td>
-        </tr>
-    </ng-container>
-</table>
-
-<br>

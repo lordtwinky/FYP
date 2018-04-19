@@ -25,7 +25,6 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { GroupCreateComponent } from './components/group-create/group-create.component';
 
 
-
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},

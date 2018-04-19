@@ -12,10 +12,13 @@ var nlp = require('compromise');
 var http = require('http');
 var util = require('util');
 var https = require('https');
-var JSZip = require('jszip');
-var Docxtemplater = require('docxtemplater');
+
 var fs = require('fs');
 var path = require('path');
+
+var mammoth = require("mammoth");
+
+
 
 
 @Component({
@@ -40,6 +43,7 @@ export class QuestionGeneratorComponent implements OnInit {
   name;
   file: any;
   fileURL;
+  generateBool = false;
 
 
 
@@ -82,7 +86,7 @@ export class QuestionGeneratorComponent implements OnInit {
 
   }
 
-  onGenerateQuestions(loggedIn) {
+  onGenerateQuestions() {
     if (this.inputText !== undefined) {
       this.authService.getQuestions(this.inputText).subscribe(data => {
 
@@ -140,62 +144,86 @@ export class QuestionGeneratorComponent implements OnInit {
           this.whenQ = "e"
         }
 
-        if (loggedIn == true) {
-          if (this.topic != undefined) {
-            const document = {
-              name: this.name,
-              text: this.inputText,
-              whoQAs: this.whoQAs,
-              whereQAs: this.whereQAs,
-              whenQAs: this.whenQAs,
-              topicID: this.topic
-            }
-
-            this.authService.createDocument(document).subscribe(data => {
-              if (data.success) {
-                this.flashMessage.show('Added document successfully', { cssClass: 'alert-success', timeout: 3000 });
-              } else {
-                this.flashMessage.show('Error adding document to topic', { cssClass: 'alert-danger', timeout: 3000 });
-              }
-            });
-          }
-        }
-
       });
+
+    }
+    else{
+      this.flashMessage.show('Please enter in text to the text area, either by copy pasting or by uploading a .txt file or .pdf file', { cssClass: 'alert-danger', timeout: 7500 });
     }
 
 
   }
 
+  UploadtoTopic(){
+  if(this.loggedIn == true) {
+    if (this.topic != undefined) {
+      const document = {
+        name: this.name,
+        text: this.inputText,
+        whoQAs: this.whoQAs,
+        whereQAs: this.whereQAs,
+        whenQAs: this.whenQAs,
+        topicID: this.topic
+      }
 
-
-  fileChanged(e) {
-    this.file = e.target.files[0];
-    this.fileURL = URL.createObjectURL(e.target.files[0]);
+      this.authService.createDocument(document).subscribe(data => {
+        if (data.success) {
+          this.flashMessage.show('Added document successfully', { cssClass: 'alert-success', timeout: 3000 });
+        } else {
+          this.flashMessage.show('Error adding document to topic', { cssClass: 'alert-danger', timeout: 3000 });
+        }
+      });
+    }
+  }
   }
 
-  uploadDocument() {
-    // let fileReader = new FileReader();
-    // fileReader.onload = (e) => {
-    //   this.inputText = fileReader.result;
-    //   console.log(fileReader.result);
-
-    //   this.authService.getQuestions(fileReader.result).subscribe(data => {
-    //   });
-    // }
-    // fileReader.readAsText(this.file);
-
-    // // textract.fromFileWithPath(filePath, function( error, text ) {
-
-    // // })
+  handleFileSelect(event) {
 
 
 
-    
+    var that = this
+    var file = event.target.files[0];
+
+    if (file.type == "text/plain") {
+      let fileReader = new FileReader();
+      fileReader.onload = (event) => {
+        this.inputText = fileReader.result;
+      }
+      fileReader.readAsText(file);
+    }
+
+    else if (file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+
+      this.readFileInputEventAsArrayBuffer(event, function (arrayBuffer) {
+        mammoth.extractRawText({ arrayBuffer: arrayBuffer })
+          .then(function (result) {
+            var text = result.value; 
+            that.inputText = text
+          })
+          .done();
+
+      });
+    }
+
+    else {
+      this.flashMessage.show('The MIME type ' + file.type + " is currently not supported. Please use a .docx file, or a .txt file", { cssClass: 'alert-danger', timeout: 6000 });
+    }
+  }
+
+  readFileInputEventAsArrayBuffer(event, callback) {
+    var file = event.target.files[0];
+
+    var reader = new FileReader();
+
+    reader.onload = (loadEvent: any) => {
+      var arrayBuffer = loadEvent.target.result;
+      callback(arrayBuffer);
+    };
+
+    reader.readAsArrayBuffer(file);
 
   }
 
-  
 
 
 

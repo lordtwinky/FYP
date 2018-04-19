@@ -1,14 +1,14 @@
 webpackJsonp([1,4],{
 
-/***/ 24:
+/***/ 28:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(802);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(887);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__ = __webpack_require__(570);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__ = __webpack_require__(606);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -24,7 +24,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-// import rest from 'rest';
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
@@ -47,24 +46,22 @@ var AuthService = (function () {
         this.user = null;
         localStorage.clear();
     };
+    //LIVE - HEROKU
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        // return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
         return this.http.post('users/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.createGroup = function (group) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        // return this.http.post('http://localhost:3000/groups/create', group, {headers: headers})
         return this.http.post('groups/create', group, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        // return this.http.post('http://localhost:3000/users/authenticate',user, {headers: headers})
         return this.http.post('users/authenticate', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -73,76 +70,64 @@ var AuthService = (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        // return this.http.get('http://localhost:3000/users/profile', {headers: headers})
         return this.http.get('users/profile', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getallGroups = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.get('http://localhost:3000/groups/groupList', {headers: headers})
         return this.http.get('groups/groupList', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getQuestions = function (text) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        // return this.http.post('http://localhost:8000/', text, {headers: headers})
-        return this.http.get('groups/myGroupList', { headers: headers })
+        return this.http.get('https://questiongeneratingserver.herokuapp.com/', { headers: headers })
             .map(function (res) { return res.text(); });
     };
     AuthService.prototype.createTopic = function (topic) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        // return this.http.post('http://localhost:3000/topics/createTopic', topic, {headers: headers})
-        return this.http.post('groups/create', topic, { headers: headers })
+        return this.http.post('topics/createTopic', topic, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.createDocument = function (document) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        // return this.http.post('http://localhost:3000/documents/createDocument', document, {headers: headers})
-        return this.http.post('groups/create', document, { headers: headers })
+        return this.http.post('documents/createDocument', document, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getGroupPage = function (groupID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.post('http://localhost:3000/groups/grabGroup', groupID, {headers: headers})
         return this.http.post('groups/grabGroup', groupID, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getTopicPage = function (topicID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.post('http://localhost:3000/topics/grabTopic', topicID, {headers: headers})
         return this.http.post('topics/grabTopic', topicID, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.joinGroup = function (userGroupIDs) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.post('http://localhost:3000/groups/joinGroup', userGroupIDs, {headers: headers})
         return this.http.post('groups/joinGroup', userGroupIDs, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.updateDocumentEdit = function (docInfo) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.put('http://localhost:3000/documents/updateDocumentEdit', docInfo, {headers: headers})
-        return this.http.put('documents/updateDocument', docInfo, { headers: headers })
+        return this.http.put('documents/updateDocumentEdit', docInfo, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.updateDocumentDelete = function (docInfo) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.put('http://localhost:3000/documents/updateDocumentDelete', docInfo, {headers: headers})
-        return this.http.put('documents/updateDocument', docInfo, { headers: headers })
+        return this.http.put('documents/updateDocumentDelete', docInfo, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.updateDocumentAdd = function (docInfo) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.put('http://localhost:3000/documents/updateDocumentAdd', docInfo, {headers: headers})
-        return this.http.put('documents/updateDocument', docInfo, { headers: headers })
+        return this.http.put('documents/updateDocumentAdd', docInfo, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.findGroupOfTopic = function (topicID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        // return this.http.post('http://localhost:3000/topics/getGroupofTopic', topicID, {headers: headers})
         return this.http.post('topics/getGroupofTopic', topicID, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -157,7 +142,7 @@ var AuthService = (function () {
 
 /***/ }),
 
-/***/ 356:
+/***/ 379:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -196,7 +181,7 @@ var FilterPipe = (function () {
 
 /***/ }),
 
-/***/ 433:
+/***/ 469:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -205,20 +190,20 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 433;
+webpackEmptyContext.id = 469;
 
 
 /***/ }),
 
-/***/ 434:
+/***/ 470:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(521);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(557);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__(565);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_module__ = __webpack_require__(552);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__(601);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_module__ = __webpack_require__(588);
 
 
 
@@ -231,7 +216,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dyna
 
 /***/ }),
 
-/***/ 551:
+/***/ 587:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -254,8 +239,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-root',
-            template: __webpack_require__(781),
-            styles: [__webpack_require__(769)]
+            template: __webpack_require__(866),
+            styles: [__webpack_require__(854)]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
@@ -265,33 +250,33 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ 552:
+/***/ 588:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(512);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_validate_service__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(548);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_validate_service__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__ = __webpack_require__(564);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(551);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_navbar_navbar_component__ = __webpack_require__(559);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_login_login_component__ = __webpack_require__(558);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_register_register_component__ = __webpack_require__(562);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_dashboard_dashboard_component__ = __webpack_require__(553);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_profile_profile_component__ = __webpack_require__(560);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_home_home_component__ = __webpack_require__(557);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_question_generator_question_generator_component__ = __webpack_require__(561);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_groups_groups_component__ = __webpack_require__(556);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_group_page_group_page_component__ = __webpack_require__(555);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_topic_page_topic_page_component__ = __webpack_require__(563);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pipes_filter_pipe__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_group_create_group_create_component__ = __webpack_require__(554);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__ = __webpack_require__(600);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__(587);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_navbar_navbar_component__ = __webpack_require__(595);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_login_login_component__ = __webpack_require__(594);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_register_register_component__ = __webpack_require__(598);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_dashboard_dashboard_component__ = __webpack_require__(589);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_profile_profile_component__ = __webpack_require__(596);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_home_home_component__ = __webpack_require__(593);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_question_generator_question_generator_component__ = __webpack_require__(597);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_groups_groups_component__ = __webpack_require__(592);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_group_page_group_page_component__ = __webpack_require__(591);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_topic_page_topic_page_component__ = __webpack_require__(599);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pipes_filter_pipe__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_group_create_group_create_component__ = __webpack_require__(590);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -375,16 +360,16 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 553:
+/***/ 589:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -419,8 +404,8 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-dashboard',
-            template: __webpack_require__(782),
-            styles: [__webpack_require__(770)]
+            template: __webpack_require__(867),
+            styles: [__webpack_require__(855)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]) === 'function' && _d) || Object])
     ], DashboardComponent);
@@ -431,15 +416,15 @@ var DashboardComponent = (function () {
 
 /***/ }),
 
-/***/ 554:
+/***/ 590:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupCreateComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -520,8 +505,8 @@ var GroupCreateComponent = (function () {
     GroupCreateComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-group-create',
-            template: __webpack_require__(783),
-            styles: [__webpack_require__(771)]
+            template: __webpack_require__(868),
+            styles: [__webpack_require__(856)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === 'function' && _c) || Object])
     ], GroupCreateComponent);
@@ -532,16 +517,16 @@ var GroupCreateComponent = (function () {
 
 /***/ }),
 
-/***/ 555:
+/***/ 591:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupPageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -638,8 +623,8 @@ var GroupPageComponent = (function () {
     GroupPageComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-group-page',
-            template: __webpack_require__(784),
-            styles: [__webpack_require__(772)]
+            template: __webpack_require__(869),
+            styles: [__webpack_require__(857)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* ActivatedRoute */]) === 'function' && _e) || Object])
     ], GroupPageComponent);
@@ -650,17 +635,17 @@ var GroupPageComponent = (function () {
 
 /***/ }),
 
-/***/ 556:
+/***/ 592:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_filter_pipe__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pipes_filter_pipe__ = __webpack_require__(379);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -706,8 +691,8 @@ var GroupsComponent = (function () {
     GroupsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-groups',
-            template: __webpack_require__(785),
-            styles: [__webpack_require__(773)]
+            template: __webpack_require__(870),
+            styles: [__webpack_require__(858)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* ActivatedRoute */]) === 'function' && _e) || Object, (typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__pipes_filter_pipe__["a" /* FilterPipe */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_5__pipes_filter_pipe__["a" /* FilterPipe */]) === 'function' && _f) || Object])
     ], GroupsComponent);
@@ -718,7 +703,7 @@ var GroupsComponent = (function () {
 
 /***/ }),
 
-/***/ 557:
+/***/ 593:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -742,8 +727,8 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-home',
-            template: __webpack_require__(786),
-            styles: [__webpack_require__(774)]
+            template: __webpack_require__(871),
+            styles: [__webpack_require__(859)]
         }), 
         __metadata('design:paramtypes', [])
     ], HomeComponent);
@@ -753,14 +738,14 @@ var HomeComponent = (function () {
 
 /***/ }),
 
-/***/ 558:
+/***/ 594:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -796,7 +781,7 @@ var LoginComponent = (function () {
                 _this.flashMessage.show('You are now logged in', {
                     cssClass: 'alert-success',
                     timeout: 5000 });
-                _this.router.navigate(['dashboard']);
+                _this.router.navigate(['profile']);
             }
             else {
                 _this.flashMessage.show(data.msg, {
@@ -809,8 +794,8 @@ var LoginComponent = (function () {
     LoginComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-login',
-            template: __webpack_require__(787),
-            styles: [__webpack_require__(775)]
+            template: __webpack_require__(872),
+            styles: [__webpack_require__(860)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _c) || Object])
     ], LoginComponent);
@@ -821,14 +806,14 @@ var LoginComponent = (function () {
 
 /***/ }),
 
-/***/ 559:
+/***/ 595:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavbarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -864,8 +849,8 @@ var NavbarComponent = (function () {
     NavbarComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-navbar',
-            template: __webpack_require__(788),
-            styles: [__webpack_require__(776)]
+            template: __webpack_require__(873),
+            styles: [__webpack_require__(861)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _c) || Object])
     ], NavbarComponent);
@@ -876,13 +861,13 @@ var NavbarComponent = (function () {
 
 /***/ }),
 
-/***/ 560:
+/***/ 596:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -914,8 +899,8 @@ var ProfileComponent = (function () {
     ProfileComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-profile',
-            template: __webpack_require__(789),
-            styles: [__webpack_require__(777)]
+            template: __webpack_require__(874),
+            styles: [__webpack_require__(862)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object])
     ], ProfileComponent);
@@ -926,14 +911,14 @@ var ProfileComponent = (function () {
 
 /***/ }),
 
-/***/ 561:
+/***/ 597:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuestionGeneratorComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -949,14 +934,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var nlp = __webpack_require__(573);
-var http = __webpack_require__(429);
-var util = __webpack_require__(825);
-var https = __webpack_require__(742);
-var JSZip = __webpack_require__(747);
-var Docxtemplater = __webpack_require__(728);
-var fs = __webpack_require__(754);
-var path = __webpack_require__(764);
+var nlp = __webpack_require__(639);
+var http = __webpack_require__(464);
+var util = __webpack_require__(292);
+var https = __webpack_require__(794);
+var fs = __webpack_require__(839);
+var path = __webpack_require__(444);
+var mammoth = __webpack_require__(827);
 var QuestionGeneratorComponent = (function () {
     function QuestionGeneratorComponent(authService, router, flashMessage) {
         this.authService = authService;
@@ -967,6 +951,7 @@ var QuestionGeneratorComponent = (function () {
         this.whenQAs = [];
         this.topics = [];
         this.loggedIn = false;
+        this.generateBool = false;
     }
     QuestionGeneratorComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -997,7 +982,7 @@ var QuestionGeneratorComponent = (function () {
             return false;
         });
     };
-    QuestionGeneratorComponent.prototype.onGenerateQuestions = function (loggedIn) {
+    QuestionGeneratorComponent.prototype.onGenerateQuestions = function () {
         var _this = this;
         if (this.inputText !== undefined) {
             this.authService.getQuestions(this.inputText).subscribe(function (data) {
@@ -1044,50 +1029,74 @@ var QuestionGeneratorComponent = (function () {
                     _this.whenQAs.push(whenQA);
                     _this.whenQ = "e";
                 }
-                if (loggedIn == true) {
-                    if (_this.topic != undefined) {
-                        var document = {
-                            name: _this.name,
-                            text: _this.inputText,
-                            whoQAs: _this.whoQAs,
-                            whereQAs: _this.whereQAs,
-                            whenQAs: _this.whenQAs,
-                            topicID: _this.topic
-                        };
-                        _this.authService.createDocument(document).subscribe(function (data) {
-                            if (data.success) {
-                                _this.flashMessage.show('Added document successfully', { cssClass: 'alert-success', timeout: 3000 });
-                            }
-                            else {
-                                _this.flashMessage.show('Error adding document to topic', { cssClass: 'alert-danger', timeout: 3000 });
-                            }
-                        });
-                    }
-                }
             });
         }
+        else {
+            this.flashMessage.show('Please enter in text to the text area, either by copy pasting or by uploading a .txt file or .pdf file', { cssClass: 'alert-danger', timeout: 7500 });
+        }
     };
-    QuestionGeneratorComponent.prototype.fileChanged = function (e) {
-        this.file = e.target.files[0];
-        this.fileURL = URL.createObjectURL(e.target.files[0]);
+    QuestionGeneratorComponent.prototype.UploadtoTopic = function () {
+        var _this = this;
+        if (this.loggedIn == true) {
+            if (this.topic != undefined) {
+                var document = {
+                    name: this.name,
+                    text: this.inputText,
+                    whoQAs: this.whoQAs,
+                    whereQAs: this.whereQAs,
+                    whenQAs: this.whenQAs,
+                    topicID: this.topic
+                };
+                this.authService.createDocument(document).subscribe(function (data) {
+                    if (data.success) {
+                        _this.flashMessage.show('Added document successfully', { cssClass: 'alert-success', timeout: 3000 });
+                    }
+                    else {
+                        _this.flashMessage.show('Error adding document to topic', { cssClass: 'alert-danger', timeout: 3000 });
+                    }
+                });
+            }
+        }
     };
-    QuestionGeneratorComponent.prototype.uploadDocument = function () {
-        // let fileReader = new FileReader();
-        // fileReader.onload = (e) => {
-        //   this.inputText = fileReader.result;
-        //   console.log(fileReader.result);
-        //   this.authService.getQuestions(fileReader.result).subscribe(data => {
-        //   });
-        // }
-        // fileReader.readAsText(this.file);
-        // // textract.fromFileWithPath(filePath, function( error, text ) {
-        // // })
+    QuestionGeneratorComponent.prototype.handleFileSelect = function (event) {
+        var _this = this;
+        var that = this;
+        var file = event.target.files[0];
+        if (file.type == "text/plain") {
+            var fileReader_1 = new FileReader();
+            fileReader_1.onload = function (event) {
+                _this.inputText = fileReader_1.result;
+            };
+            fileReader_1.readAsText(file);
+        }
+        else if (file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            this.readFileInputEventAsArrayBuffer(event, function (arrayBuffer) {
+                mammoth.extractRawText({ arrayBuffer: arrayBuffer })
+                    .then(function (result) {
+                    var text = result.value;
+                    that.inputText = text;
+                })
+                    .done();
+            });
+        }
+        else {
+            this.flashMessage.show('The MIME type ' + file.type + " is currently not supported. Please use a .docx file, or a .txt file", { cssClass: 'alert-danger', timeout: 6000 });
+        }
+    };
+    QuestionGeneratorComponent.prototype.readFileInputEventAsArrayBuffer = function (event, callback) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (loadEvent) {
+            var arrayBuffer = loadEvent.target.result;
+            callback(arrayBuffer);
+        };
+        reader.readAsArrayBuffer(file);
     };
     QuestionGeneratorComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-question-generator',
-            template: __webpack_require__(790),
-            styles: [__webpack_require__(778)]
+            template: __webpack_require__(875),
+            styles: [__webpack_require__(863)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _c) || Object])
     ], QuestionGeneratorComponent);
@@ -1098,16 +1107,16 @@ var QuestionGeneratorComponent = (function () {
 
 /***/ }),
 
-/***/ 562:
+/***/ 598:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1165,8 +1174,8 @@ var RegisterComponent = (function () {
     RegisterComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-register',
-            template: __webpack_require__(791),
-            styles: [__webpack_require__(779)]
+            template: __webpack_require__(876),
+            styles: [__webpack_require__(864)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]) === 'function' && _d) || Object])
     ], RegisterComponent);
@@ -1177,16 +1186,16 @@ var RegisterComponent = (function () {
 
 /***/ }),
 
-/***/ 563:
+/***/ 599:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(23);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopicPageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1270,7 +1279,6 @@ var TopicPageComponent = (function () {
             if (data.success) {
             }
             else {
-                console.log(data.foundGroup._id);
             }
         });
     };
@@ -1299,7 +1307,6 @@ var TopicPageComponent = (function () {
             if (data.success) {
             }
             else {
-                console.log(data);
             }
         });
     };
@@ -1344,7 +1351,6 @@ var TopicPageComponent = (function () {
             if (data.success) {
             }
             else {
-                console.log(data.foundGroup._id);
             }
         });
     };
@@ -1378,15 +1384,14 @@ var TopicPageComponent = (function () {
             if (data.success) {
             }
             else {
-                console.log(data);
             }
         });
     };
     TopicPageComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-topic-page',
-            template: __webpack_require__(792),
-            styles: [__webpack_require__(780)]
+            template: __webpack_require__(877),
+            styles: [__webpack_require__(865)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]) === 'function' && _d) || Object, (typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* ActivatedRoute */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* ActivatedRoute */]) === 'function' && _e) || Object])
     ], TopicPageComponent);
@@ -1397,13 +1402,13 @@ var TopicPageComponent = (function () {
 
 /***/ }),
 
-/***/ 564:
+/***/ 600:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(28);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1442,7 +1447,7 @@ var AuthGuard = (function () {
 
 /***/ }),
 
-/***/ 565:
+/***/ 601:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1458,183 +1463,183 @@ var environment = {
 
 /***/ }),
 
-/***/ 769:
+/***/ 854:
 /***/ (function(module, exports) {
 
 module.exports = ""
 
 /***/ }),
 
-/***/ 770:
+/***/ 855:
 /***/ (function(module, exports) {
 
 module.exports = ""
 
 /***/ }),
 
-/***/ 771:
+/***/ 856:
 /***/ (function(module, exports) {
 
 module.exports = "/* Style inputs, select elements and textareas */\r\ninput[type=text], select, textarea{\r\n    width: 100%;\r\n    padding: 12px;\r\n    border: 1px solid #ccc;\r\n    border-radius: 4px;\r\n    box-sizing: border-box;\r\n    resize: vertical;\r\n  }\r\n  \r\n  /* Style the label to display next to the inputs */\r\n  label {\r\n    padding: 12px 12px 12px 0;\r\n    display: inline-block;\r\n  }\r\n  \r\n  /* Style the submit button */\r\n  input[type=submit] {\r\n    background-color: #4CAF50;\r\n    color: white;\r\n    padding: 12px 20px;\r\n    border: none;\r\n    border-radius: 4px;\r\n    cursor: pointer;\r\n    float: right;\r\n  }\r\n  \r\n  /* Style the container */\r\n  .container {\r\n    border-radius: 5px;\r\n    background-color: #f2f2f2;\r\n    padding: 20px;\r\n  }\r\n  \r\n  /* Floating column for labels: 25% width */\r\n  .col-25 {\r\n    float: left;\r\n    width: 25%;\r\n    margin-top: 6px;\r\n  }\r\n  \r\n  /* Floating column for inputs: 75% width */\r\n  .col-75 {\r\n    float: left;\r\n    width: 75%;\r\n    margin-top: 6px;\r\n  }\r\n  \r\n  /* Clear floats after the columns */\r\n  .row:after {\r\n    content: \"\";\r\n    display: table;\r\n    clear: both;\r\n  }\r\n  \r\n  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */\r\n  @media (max-width: 600px) {\r\n    .col-25, .col-75, input[type=submit] {\r\n      width: 100%;\r\n      margin-top: 0;\r\n    }\r\n  }"
 
 /***/ }),
 
-/***/ 772:
+/***/ 857:
 /***/ (function(module, exports) {
 
 module.exports = "/* Style inputs, select elements and textareas */\r\ninput[type=text], select, textarea{\r\n    width: 100%;\r\n    padding: 12px;\r\n    border: 1px solid #ccc;\r\n    border-radius: 4px;\r\n    box-sizing: border-box;\r\n    resize: vertical;\r\n  }\r\n  \r\n  /* Style the label to display next to the inputs */\r\n  label {\r\n    padding: 12px 12px 12px 0;\r\n    display: inline-block;\r\n  }\r\n  \r\n  /* Style the submit button */\r\n  input[type=submit] {\r\n    background-color: #4CAF50;\r\n    color: white;\r\n    padding: 12px 20px;\r\n    border: none;\r\n    border-radius: 4px;\r\n    cursor: pointer;\r\n    float: right;\r\n  }\r\n  \r\n  /* Style the container */\r\n  .container {\r\n    border-radius: 5px;\r\n    background-color: #f2f2f2;\r\n    padding: 20px;\r\n  }\r\n  \r\n  /* Floating column for labels: 25% width */\r\n  .col-25 {\r\n    float: left;\r\n    width: 25%;\r\n    margin-top: 6px;\r\n  }\r\n  \r\n  /* Floating column for inputs: 75% width */\r\n  .col-75 {\r\n    float: left;\r\n    width: 75%;\r\n    margin-top: 6px;\r\n  }\r\n  \r\n  /* Clear floats after the columns */\r\n  .row:after {\r\n    content: \"\";\r\n    display: table;\r\n    clear: both;\r\n  }\r\n  \r\n  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */\r\n  @media (max-width: 600px) {\r\n    .col-25, .col-75, input[type=submit] {\r\n      width: 100%;\r\n      margin-top: 0;\r\n    }\r\n  }"
 
 /***/ }),
 
-/***/ 773:
+/***/ 858:
 /***/ (function(module, exports) {
 
 module.exports = "body{\r\n\tfont:15px/1.3 'Open Sans', sans-serif;\r\n\tcolor: #5e5b64;\r\n\ttext-align:center;\r\n}\r\n\r\na, a:visited {\r\n\toutline:none;\r\n\tcolor:#389dc1;\r\n}\r\n\r\na:hover{\r\n\ttext-decoration:none;\r\n}\r\n\r\nsection, footer, header, aside, nav{\r\n\tdisplay: block;\r\n}\r\n\r\n\r\n/*-------------------------\r\n\tThe search input\r\n--------------------------*/\r\n\r\n\r\n.bar{\r\n\tbackground-color:#5c9bb7;\r\n\r\n\t/* background-image:-webkit-linear-gradient(top, #5c9bb7, #5392ad);\r\n\tbackground-image:-moz-linear-gradient(top, #5c9bb7, #5392ad);\r\n\tbackground-image:linear-gradient(top, #5c9bb7, #5392ad); */\r\n\r\n\tbox-shadow: 0 1px 1px #ccc;\r\n\tborder-radius: 2px;\r\n\twidth: 400px;\r\n\tpadding: 14px;\r\n\tmargin: 80px auto 20px;\r\n\tposition:relative;\r\n}\r\n\r\n.bar input{\r\n\tbackground:#fff no-repeat 13px 13px;\r\n\tbackground-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkU5NEY0RTlFMTA4NzExRTM5RTEzQkFBQzMyRjkyQzVBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkU5NEY0RTlGMTA4NzExRTM5RTEzQkFBQzMyRjkyQzVBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RTk0RjRFOUMxMDg3MTFFMzlFMTNCQUFDMzJGOTJDNUEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RTk0RjRFOUQxMDg3MTFFMzlFMTNCQUFDMzJGOTJDNUEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4DjA/RAAABK0lEQVR42pTSQUdEURjG8dOY0TqmPkGmRcqYD9CmzZAWJRHVRIa0iFYtM6uofYaiEW2SRJtEi9YxIklp07ZkWswu0v/wnByve7vm5ee8M+85zz1jbt9Os+WiGkYdYxjCOx5wgFeXUHmtBSzpcCGa+5BJTCjEP+0nKWAT8xqe4ArPGEEVC1hHEbs2oBwdXkM7mj/JLZrad437sCGHOfUtcziutuYu2v8XUFF/4f6vMK/YgAH1HxkBYV60AR31gxkBYd6xAeF3VzMCwvzOBpypX8V4yuFRzX2d2gD/l5yjH4fYQEnzkj4fae5rJulF2sMXVrAsaTWttRFu4Osb+1jEDT71/ZveyhouTch2fINQL9hKefKjuYFfuznXWzXMTabyrvfyIV3M4vhXgAEAUMs7K0J9UJAAAAAASUVORK5CYII=);\r\n\r\n\tborder: none;\r\n\twidth: 100%;\r\n\tline-height: 19px;\r\n\tpadding: 11px 0;\r\n\r\n\tborder-radius: 2px;\r\n\tbox-shadow: 0 2px 8px #c4c4c4 inset;\r\n\ttext-align: left;\r\n\tfont-size: 14px;\r\n\tfont-family: inherit;\r\n\tcolor: #738289;\r\n\tfont-weight: bold;\r\n\toutline: none;\r\n\ttext-indent: 40px;\r\n}\r\n\r\nul{\r\n\tlist-style: none;\r\n\twidth: 428px;\r\n\tmargin: 0 auto;\r\n\ttext-align: left;\r\n}\r\n\r\nul li{\r\n\tborder-bottom: 1px solid #ddd;\r\n\tpadding: 10px;\r\n\toverflow: hidden;\r\n}\r\n\r\nul li img{\r\n\twidth:60px;\r\n\theight:60px;\r\n\tfloat:left;\r\n\tborder:none;\r\n}\r\n\r\nul li p{\r\n\tmargin-left: 75px;\r\n\tfont-weight: bold;\r\n\tpadding-top: 12px;\r\n\tcolor:#6e7a7f;\r\n}"
 
 /***/ }),
 
-/***/ 774:
+/***/ 859:
 /***/ (function(module, exports) {
 
 module.exports = ""
 
 /***/ }),
 
-/***/ 775:
+/***/ 860:
 /***/ (function(module, exports) {
 
 module.exports = ""
 
 /***/ }),
 
-/***/ 776:
+/***/ 861:
 /***/ (function(module, exports) {
 
 module.exports = ""
 
 /***/ }),
 
-/***/ 777:
+/***/ 862:
 /***/ (function(module, exports) {
 
 module.exports = ""
 
 /***/ }),
 
-/***/ 778:
+/***/ 863:
 /***/ (function(module, exports) {
 
-module.exports = "\r\n td {\r\n  border: 1px solid grey;\r\n  border-collapse: collapse;\r\n  padding: 5px;\r\n}\r\n\r\ntable tr:nth-child(odd) {\r\n    background-color: #ffffff;\r\n}\r\ntable tr:nth-child(even) {\r\n  background-color: #ffffff;\r\n}\r\ntextarea {\r\n    resize: none;\r\n }\r\n\r\n input[type=button]\r\n {\r\n   background-color: rgb(131, 46, 165); \r\n }\r\n "
+module.exports = "\r\n td {\r\n  border: 1px solid grey;\r\n  border-collapse: collapse;\r\n  padding: 5px;\r\n}\r\n\r\ntable tr:nth-child(odd) {\r\n    background-color: #ffffff;\r\n}\r\ntable tr:nth-child(even) {\r\n  background-color: #ffffff;\r\n}\r\ntextarea {\r\n    resize: none;\r\n }\r\n\r\n input[type=button]\r\n {\r\n   background-color: rgb(131, 46, 165); \r\n }\r\n \r\n input[type=\"file\"] {\r\n  display: none;\r\n}\r\n\r\n.custom-file-upload {\r\n  border: 1px dashed #ccc;\r\n  display: inline-block;\r\n  padding: 6px 12px;\r\n  cursor: pointer;\r\n  text-align: center;\r\n}\r\n\r\n\r\n.buttonCustom {\r\n\r\n  border: none;\r\n  background-color: rgb(45, 45, 51);\r\n  color: white;\r\n  padding: 15px 32px;\r\n  text-align: center;\r\n  text-decoration: none;\r\n  display: inline-block;\r\n  font-size: 16px;\r\n  /* border: 2px solid rgb(39, 37, 201);\r\n  background-color: rgb(39, 37, 201); */\r\n}\r\n\r\n.buttonCustom:hover {\r\n  background-color:  rgb(23, 23, 24);\r\n  color: white;\r\n}\r\n\r\n.flash-message\r\n{\r\n    z-index: 10000;\r\n    position: relative;\r\n    color: rgb(197, 41, 41);\r\n}\r\n\r\n"
 
 /***/ }),
 
-/***/ 779:
+/***/ 864:
 /***/ (function(module, exports) {
 
 module.exports = ""
 
 /***/ }),
 
-/***/ 780:
+/***/ 865:
 /***/ (function(module, exports) {
 
 module.exports = "input[type=text], select, textarea{\r\n    width: 100%;\r\n    padding: 12px;\r\n    border: 1px solid #ccc;\r\n    border-radius: 4px;\r\n    box-sizing: border-box;\r\n    resize: vertical;\r\n  }\r\n\r\n  button{\r\n    vertical-align: baseline;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    line-height: 16px;\r\n  }\r\n\r\n  #checkUnCheck{\r\n    vertical-align: baseline;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    line-height: 30px;\r\n  }\r\n\r\n  #wrapper {\r\n    width: 100%;\r\n    height: 43px;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n  }\r\n  \r\n  #saveDelete {\r\n    vertical-align: baseline;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    line-height: 9px;\r\n  }\r\n\r\n  th{\r\n    text-align: center;\r\n    height: 25px;\r\n    vertical-align: center;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n    background-color: #ffffff;\r\n    vertical-align: middle;\r\n    border: 1px solid rgb(66, 63, 63)\r\n  } \r\n\r\n  h3 {\r\n    font-size: 1.9em;\r\n    vertical-align: middle;\r\n  }\r\n\r\n  button:disabled,\r\n  button[disabled]{\r\n    border: 1px solid #999999;\r\n    background-color: #cccccc;\r\n    color: #666666;\r\n  }\r\n\r\n  button:hover {\r\n    border: 1px solid #0099cc;\r\n    background-color: #00aacc;\r\n    color: #ffffff;\r\n    padding: 5px 10px;\r\n    background-position: 0px;\r\n  }\r\n"
 
 /***/ }),
 
-/***/ 781:
+/***/ 866:
 /***/ (function(module, exports) {
 
 module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <flash-messages></flash-messages>\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
-/***/ 782:
+/***/ 867:
 /***/ (function(module, exports) {
 
 module.exports = "<div *ngIf=\"user\">\n<h1> Welcome {{user.name}}</h1>\n</div>"
 
 /***/ }),
 
-/***/ 783:
+/***/ 868:
 /***/ (function(module, exports) {
 
 module.exports = "<h2 class=\"page-header\">Create new group</h2>\n<form (submit)=\"onCreateGroup()\">\n  <div class=\"group-name\">\n    <label>Group name</label>\n    <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"input-name\">\n  </div>\n  <div class=\"group-setting\">\n      <label for=\"setting\">Privacy setting</label>\n      <select [(ngModel)]=\"setting\" name=\"setting\" class=\"select-privacy\" id=\"setting\" required>\n        <option *ngFor=\"let setting of settings\" [value]=\"setting.id\">{{setting.title}}</option>\n      </select>\n  </div>\n  <div class=\"group-type\">\n      <label for=\"type\">Type</label>\n      <select [(ngModel)]=\"type\" name=\"type\" class=\"select-group\" id=\"type\" required>\n        <option *ngFor=\"let type of types\" [value]=\"type.id\">{{type.name}}</option>\n      </select>\n  </div>\n  <div class=\"group-school\">\n      <label>School name</label>\n      <input type=\"text\" [(ngModel)]=\"school\" name=\"school\" class=\"input-school\">\n  </div>\n  <div class=\"group-organization\">\n      <label>Organization name</label>\n      <input type=\"text\" [(ngModel)]=\"organization\" name=\"organization\" class=\"input-organization\">\n  </div>\n  <div class=\"group-fields\">\n      <label for=\"fields\">Fields of interest</label>\n      <select multiple [(ngModel)]=\"fieldsSelected\" name=\"fields\" class=\"select-fields\" id=\"type\" required>\n        <option *ngFor=\"let field of fields\" [value]=\"field.id\">{{field.name}}</option>\n      </select>\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\">\n</form> \n\n"
 
 /***/ }),
 
-/***/ 784:
+/***/ 869:
 /***/ (function(module, exports) {
 
 module.exports = "<div *ngIf=\"group\">\n  <h2 class=\"page=header\">Welcome to the Group:</h2>\n    <ul class=\"list-group\">\n      <li class=\"list-group-item\">Name: {{group.name}}</li>\n    </ul>\n</div>\n\n<h2 class=\"page=header\">All topics:</h2>\n<div *ngFor=\"let topic of topics\">\n  <ul class=\"list-group\">\n      <a [routerLink]=\"['/TopicPage', topic._id]\">\n        <span>{{topic.name}}</span>\n      </a>\n    </ul>\n</div>\n\n\n<h2 class=\"page-header\">Create new Topic</h2>\n<form (submit)=\"onCreateTopic()\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"form-control\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\">\n</form>\n\n<div *ngIf=\"joinBool==true\">\n<h2 class=\"page-header\">Join this group</h2>\n<form (submit)=\"joinGroup()\">\n  <div class=\"join-group\">\n      <input type=\"submit\" class=\"btn btn-primary\" value=\"Join\">\n  </div>\n</form>\n</div>"
 
 /***/ }),
 
-/***/ 785:
+/***/ 870:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"bar\">\n  <form id=\"search\">\n    <label> Search: </label>\n    <input type=\"text\" [(ngModel)]=\"term\" name=\"term\"/>\n  </form>\n</div>\n  <ul id=\"group-listing\">\n    <li *ngFor=\"let group of groupNames | filter:term\">\n      <div class=\"single-group\">\n        \n        <a [routerLink]=\"['/GroupPage', group._id]\">\n          <span>{{group.name}}</span>\n        </a>\n      </div>\n    </li>\n  </ul>\n"
 
 /***/ }),
 
-/***/ 786:
+/***/ 871:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"jumbotron text-center\">\n    <h1>Question generation App</h1>\n      <p class=\"lead\"> Welcome to Question generation application</p>\n\n      <div>\n        \n        <!-- <a class=\"btn btn-default\" [routerLink]=\"['/login']\"> Login </a> -->\n      </div>\n\n      <div class=\"row\">\n        <div class=\"col-md-4\">\n          <h3> Create groups </h3>\n          <p> Share documents, questions and ideas </p>\n        </div>\n        <div class=\"col-md-4\">\n          <h3> Register </h3>\n          <p> Create an account to access all features</p>\n          <!-- <a class=\"btn btn-primary\" [routerLink]=\"['/register']\"> Register </a> -->\n        </div>\n        <div class=\"col-md-4\">\n          <h3> Simply use the tool</h3>\n          <p> Generate questions with the tool</p>\n        </div>\n      </div>\n      \n</div>"
 
 /***/ }),
 
-/***/ 787:
+/***/ 872:
 /***/ (function(module, exports) {
 
 module.exports = "<h2 class=\"page-header\">Login</h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\n</form>\n"
 
 /***/ }),
 
-/***/ 788:
+/***/ 873:
 /***/ (function(module, exports) {
 
 module.exports = "<nav class=\"navbar navbar-default\">\n      <div class=\"container\">\n        <div class=\"navbar-header\">\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n            <span class=\"sr-only\">Toggle navigation</span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n          </button>\n          <a class=\"navbar-brand\" href=\"#\">QG Tool</a>\n        </div>\n        <div id=\"navbar\" class=\"collapse navbar-collapse\">\n          <ul class=\"nav navbar-nav navbar-left\">\n            <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/']\">Home</a></li>\n          </ul>\n\n          <ul class=\"nav navbar-nav navbar-right\">\n            <!-- <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/dashboard']\">Dashboard</a></li> -->\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/profile']\">Profile</a></li>\n            <li [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/QGTool']\">QG Tool</a></li>\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/CreateGroup']\">Create a Group</a></li>\n            <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/Groups']\">Browse Groups</a></li>\n\n\n            <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/login']\">Login</a></li>\n            <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions] = \"{exact:true}\"><a [routerLink]=\"['/register']\">Register</a></li>\n            <li *ngIf=\"authService.loggedIn()\"><a (click)=\"onLogoutClick()\" href=\"#\">Logout</a></li>\n          </ul>\n        </div><!--/.nav-collapse -->\n      </div>\n    </nav>"
 
 /***/ }),
 
-/***/ 789:
+/***/ 874:
 /***/ (function(module, exports) {
 
 module.exports = "<div *ngIf=\"user\">\n  <h2 class=\"page=header\">Your account details:</h2>\n    <ul class=\"list-group\">\n      <li class=\"list-group-item\">Username: {{user.username}}</li>\n      <li class=\"list-group-item\">Name: {{user.name}}</li>\n      <li class=\"list-group-item\">Email: {{user.email}}</li>\n    </ul>\n</div>\n\n<h2 class=\"page=header\">Your groups:</h2>\n<div *ngFor=\"let group of groupNames\">\n  <ul class=\"list-group\">\n      <li class=\"list-group-item\">  Name: {{group}}</li>\n\n    </ul>\n</div>\n \n "
 
 /***/ }),
 
-/***/ 790:
+/***/ 875:
 /***/ (function(module, exports) {
 
-module.exports = "<script src=\"docxtemplater.js\"></script>\r\n<script src=\"jszip.js\"></script>\r\n<script src=\"vendor/file-saver.min.js\"></script>\r\n<script src=\"vendor/jszip-utils.js\"></script>\r\n\r\n<h2 align=\"center\">Question Generation Tool</h2>\r\n\r\n<br>\r\n<div *ngIf=\"loggedIn == true\">\r\n\r\n    <div class=\"well\">\r\n        <form (submit)=\"onGenerateQuestions(loggedIn)\" id=\"generate\" align=\"right\">\r\n            <div class=\"form-textArea\">\r\n                <textarea [(ngModel)]=\"inputText\" name=\"inputText\" rows=\"35\" cols=\"154\" class=\"form-control\" align=\"right\"></textarea>\r\n            </div>\r\n            <div class=\"dropdownTopics\">\r\n                <label for=\"topic\">Topic</label>\r\n                <select [(ngModel)]=\"topic\" name=\"topic\" class=\"select-privacy\" id=\"topic\" required>\r\n                    <option *ngFor=\"let topic of topics\" [value]=\"topic._id\">{{topic.name}}</option>\r\n                </select>\r\n            </div>\r\n            <div class=\"docName\">\r\n                <label>Document name</label>\r\n                <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"input-name\">\r\n            </div>\r\n            <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\" align=\"right\">\r\n        </form>\r\n    </div>\r\n    <br>\r\n\r\n    <h2>Drop File</h2>\r\n    <div class=\"Block\">\r\n        <label id=\"lbl\">Code </label>\r\n        <input type='file' (change)=\"fileChanged($event)\">\r\n\r\n    </div>\r\n    <button (click)=\"uploadDocument()\">View contents of file</button>\r\n\r\n   \r\n\r\n\r\n\r\n</div>\r\n\r\n<div *ngIf=\"loggedIn == false\">\r\n\r\n    <div class=\"well\">\r\n        <form (submit)=\"onGenerateQuestions(loggedIn)\" id=\"generate\" align=\"right\">\r\n            <div class=\"form-textArea\">\r\n                <textarea [(ngModel)]=\"inputText\" name=\"inputText\" rows=\"35\" cols=\"154\" class=\"form-control\" align=\"right\"></textarea>\r\n            </div>\r\n            <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\" align=\"right\">\r\n        </form>\r\n    </div>\r\n    <br>\r\n</div>\r\n\r\n<table>\r\n    <div *ngIf=\"whoQ\">\r\n        <h3>Who-based Questions</h3>\r\n    </div>\r\n    <ng-container *ngFor=\"let QAs of whoQAs\">\r\n        <tr>\r\n            <td title=\"'Question'\">{{QAs.question}}</td>\r\n            <td title=\"'Answer'\">{{QAs.answer}}</td>\r\n        </tr>\r\n    </ng-container>\r\n</table>\r\n\r\n<br>\r\n\r\n<table>\r\n    <div *ngIf=\"whereQ\">\r\n        <h3>Where-based Questions</h3>\r\n    </div>\r\n    <ng-container *ngFor=\"let QAs of whereQAs\">\r\n        <tr>\r\n            <td>{{QAs.question}}</td>\r\n            <td>{{QAs.answer}}</td>\r\n        </tr>\r\n    </ng-container>\r\n</table>\r\n\r\n<br>\r\n\r\n<table>\r\n    <div *ngIf=\"whenQ\">\r\n        <h3>When-based Questions</h3>\r\n    </div>\r\n    <ng-container *ngFor=\"let QAs of whenQAs\">\r\n        <tr>\r\n            <td>{{QAs.question}}</td>\r\n            <td>{{QAs.answer}}</td>\r\n        </tr>\r\n    </ng-container>\r\n</table>\r\n\r\n<br>"
+module.exports = "<h2 align=\"center\">Question Generation Tool</h2>\r\n<br>\r\n<h4 align=\"center\">Enter in the text you would like to generate questions and answers for by either choosing a .docx file or .txt, or simply\r\n    copy pasting in text.</h4>\r\n<br>\r\n\r\n\r\n\r\n    <div class=\"banner\" align=\"center\">\r\n        <label class=\"custom-file-upload\" center=\"middle\"> Click to choose a .docx or .txt file\r\n            <input id=\"document\" type=\"file\" (change)=\"handleFileSelect($event)\" />\r\n        </label>\r\n    </div>\r\n\r\n    <br>\r\n\r\n    <div>\r\n        <form (submit)=\"onGenerateQuestions()\" id=\"generate\" align=\"right\">\r\n            <div class=\"form-textArea\">\r\n                <textarea [(ngModel)]=\"inputText\" name=\"inputText\" rows=\"32\" cols=\"154\" class=\"form-control\" align=\"right\"></textarea>\r\n            </div>\r\n        </form>\r\n    </div>\r\n    <br>\r\n    <div align=\"center\">\r\n        <button (click)=onGenerateQuestions() class=\"button buttonCustom\">Generate questions and answers</button>\r\n    </div>\r\n\r\n<br>\r\n<br>\r\n    <table>\r\n        <div *ngIf=\"whoQ\">\r\n            <h3>Who-based Questions</h3>\r\n        </div>\r\n        <ng-container *ngFor=\"let QAs of whoQAs\">\r\n            <tr>\r\n                <td title=\"'Question'\">{{QAs.question}}</td>\r\n                <td title=\"'Answer'\">{{QAs.answer}}</td>\r\n            </tr>\r\n        </ng-container>\r\n    </table>\r\n\r\n    <br>\r\n\r\n    <table>\r\n        <div *ngIf=\"whereQ\">\r\n            <h3>Where-based Questions</h3>\r\n        </div>\r\n        <ng-container *ngFor=\"let QAs of whereQAs\">\r\n            <tr>\r\n                <td>{{QAs.question}}</td>\r\n                <td>{{QAs.answer}}</td>\r\n            </tr>\r\n        </ng-container>\r\n    </table>\r\n\r\n    <br>\r\n\r\n    <table>\r\n        <div *ngIf=\"whenQ\">\r\n            <h3>When-based Questions</h3>\r\n        </div>\r\n        <ng-container *ngFor=\"let QAs of whenQAs\">\r\n            <tr>\r\n                <td>{{QAs.question}}</td>\r\n                <td>{{QAs.answer}}</td>\r\n            </tr>\r\n        </ng-container>\r\n    </table>\r\n\r\n    <br>\r\n    <div *ngIf=\"loggedIn == true\">\r\n    <div *ngIf=\"whoQ || whereQ || whenQ\">\r\n        <br>\r\n        <h3 >Upload the generated questions and answers to a topic</h3>\r\n        <br>\r\n        <div class=\"docName\">\r\n                <label>Give this document a name: </label>\r\n                <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"input-name\">\r\n            </div>\r\n        <div class=\"dropdownTopics\">\r\n            <label for=\"topic\">Choose which topic you want to upload it to:</label>\r\n            <select [(ngModel)]=\"topic\" name=\"topic\" class=\"select-privacy\" id=\"topic\" required>\r\n                <option *ngFor=\"let topic of topics\" [value]=\"topic._id\">{{topic.name}}</option>\r\n            </select>\r\n        </div>\r\n        <br>\r\n        <button (click)=UploadtoTopic() class=\"button buttonCustom\">Upload</button>\r\n        <br>\r\n        <br>\r\n        <br>\r\n        <br>\r\n    </div>"
 
 /***/ }),
 
-/***/ 791:
+/***/ 876:
 /***/ (function(module, exports) {
 
 module.exports = "<h2 class=\"page-header\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Email</label>\n    <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\" >\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\">\n</form>\n"
 
 /***/ }),
 
-/***/ 792:
+/***/ 877:
 /***/ (function(module, exports) {
 
 module.exports = "<div *ngIf=\"topic\">\n    <h1 class=\"page=header\">Topic : {{topic.name}}</h1>\n</div>\n\n<!-- if the admin of the group is viewing the page -->\n<div *ngIf=\"admin == true\">\n\n    <div ng-controller=\"EditableRowCtrl\">\n\n        <ng-container *ngFor=\"let document of documents; let z = index;\">\n\n            <br>\n\n            <h2>Document : {{document.name}}</h2>\n\n            <br>\n\n            <div>\n                <table class=\"table table-bordered table-hover table-condensed\">\n                    <th colspan=\"4\">\n                        <h3>When-based Questions</h3>\n                    </th>\n                    <tr style=\"font-weight: bold\">\n                        <td style=\"width:0%\" align=\"center\">Checked</td>\n                        <td style=\"width:75%\" align=\"center\">Question</td>\n                        <td style=\"width:18%\" align=\"center\">Answer</td>\n                        <td style=\"width:0%\" align=\"center\">Edit</td>\n                    </tr>\n                    <tr *ngFor=\"let whenQA of document.whenQAs;let i = index;\">\n\n                        <td>\n                            <div *ngIf=\"document.whenQAs[i].checked == true\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <button type=\"button\" (click)=\"check(document._id, i, 'whenQA')\" class=\"btn btn-success btn-md\" id=\"checkUnCheck\">\n                                    <div style=\"height:2em;border:1px\">\n                                        <span class=\"align-middle glyphicon glyphicon-ok\" vertical-align=\"bottom\" display=\"inline-block\"></span> Checked\n                                    </div>\n                                </button>\n                            </div>\n                            <div *ngIf=\"document.whenQAs[i].checked == false\" class=\"col-md-1 text-center\">\n                                <button type=\"button\" (click)=\"check(document._id, i, 'whenQA')\" class=\"btn btn-danger btn-md\" id=\"checkUnCheck\">\n                                    <span class=\"glyphicon glyphicon-remove\"></span> Unchecked\n                                </button>\n                            </div>\n                        </td>\n\n                        <td>\n                            <input type=\"text\" [(ngModel)]=\"document.whenQAs[i].question\" name=\"question\" class=\"input-question\">\n                        </td>\n                        <td>\n                            <input type=\"text\" [(ngModel)]=\"document.whenQAs[i].answer\" name=\"answer\" class=\"input-question\">\n                        </td>\n                        <td style=\"white-space: nowrap\">\n                            <form (submit)=\"editQA(document._id, i, whenQA.question, whenQA.answer, 'whenQA')\" class=\"form-buttons form-inline\">\n                                <button type=\"submit\" class=\"btn btn-default glyphicon glyphicon-floppy-disk\" id=\"saveDelete\">\n                                    Save\n                                </button>\n                            </form>\n\n                            <button type=\"button\" (click)=\"deleteQA(document._id, i, 'whenQA')\" class=\"btn btn-default glyphicon glyphicon-remove\" id=\"saveDelete\">\n                                Delete\n                            </button>\n\n                        </td>\n                    </tr>\n                </table>\n                <button type=\"button\" class=\"btn btn-default\" (click)=\"addRow(document._id, 'whenQA')\">Add row</button>\n            </div>\n\n            <br>\n\n            <div>\n                <table class=\"table table-bordered table-hover table-condensed\">\n                    <th colspan=\"4\">\n                        <h3>Where-based Questions</h3>\n                    </th>\n                    <tr style=\"font-weight: bold\">\n                        <td style=\"width:0%\" align=\"center\">Checked</td>\n                        <td style=\"width:75%\" align=\"center\">Question</td>\n                        <td style=\"width:18%\" align=\"center\">Answer</td>\n                        <td style=\"width:0%\" align=\"center\">Edit</td>\n                    </tr>\n                    <tr *ngFor=\"let whereQA of document.whereQAs;let i = index;\">\n\n                        <td>\n                            <div *ngIf=\"document.whereQAs[i].checked == true\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <button type=\"button\" (click)=\"check(document._id, i, 'whereQA')\" class=\"btn btn-success btn-md\" id=\"checkUnCheck\">\n                                    <div style=\"height:2em;border:1px\">\n                                        <span class=\"align-middle glyphicon glyphicon-ok\" vertical-align=\"bottom\" display=\"inline-block\"></span> Checked\n                                    </div>\n                                </button>\n                            </div>\n                            <div *ngIf=\"document.whereQAs[i].checked == false\" class=\"col-md-1 text-center\">\n                                <button type=\"button\" (click)=\"check(document._id, i, 'whereQA')\" class=\"btn btn-danger btn-md\" id=\"checkUnCheck\">\n                                    <span class=\"glyphicon glyphicon-remove\"></span> Unchecked\n                                </button>\n                            </div>\n                        </td>\n\n                        <td>\n                            <input type=\"text\" [(ngModel)]=\"document.whereQAs[i].question\" name=\"question\" class=\"input-question\">\n                        </td>\n                        <td>\n                            <input type=\"text\" [(ngModel)]=\"document.whereQAs[i].answer\" name=\"answer\" class=\"input-question\">\n                        </td>\n                        <td style=\"white-space: nowrap\">\n                            <form (submit)=\"editQA(document._id, i, whereQA.question, whereQA.answer, 'whereQA')\" class=\"form-buttons form-inline\">\n                                <button type=\"submit\" class=\"btn btn-default glyphicon glyphicon-floppy-disk\" id=\"saveDelete\">\n                                    Save\n                                </button>\n                            </form>\n\n                            <button type=\"button\" (click)=\"deleteQA(document._id, i, 'whereQA')\" class=\"btn btn-default glyphicon glyphicon-remove\" id=\"saveDelete\">\n                                Delete\n                            </button>\n\n                        </td>\n                    </tr>\n                </table>\n                <button type=\"button\" class=\"btn btn-default\" (click)=\"addRow(document._id, 'whereQA')\">Add row</button>\n            </div>\n\n            <br>\n\n            <div>\n                <table class=\"table table-bordered table-hover table-condensed\">\n                    <th colspan=\"4\">\n                        <h3>Who-based Questions</h3>\n                    </th>\n                    <tr style=\"font-weight: bold\">\n                        <td style=\"width:0%\" align=\"center\">Checked</td>\n                        <td style=\"width:50%\" align=\"center\">Question</td>\n                        <td style=\"width:40%\" align=\"center\">Answer</td>\n                        <td style=\"width:0%\" align=\"center\">Edit</td>\n                    </tr>\n                    <tr *ngFor=\"let whoQA of document.whoQAs;let i = index;\">\n\n                        <td>\n                            <div *ngIf=\"document.whoQAs[i].checked == true\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <button type=\"button\" (click)=\"check(document._id, i, 'whoQA')\" class=\"btn btn-success btn-md\" id=\"checkUnCheck\">\n                                    <div style=\"height:2em;border:1px\">\n                                        <span class=\"align-middle glyphicon glyphicon-ok\" vertical-align=\"bottom\" display=\"inline-block\"></span> Checked\n                                    </div>\n                                </button>\n                            </div>\n                            <div *ngIf=\"document.whoQAs[i].checked == false\" class=\"col-md-1 text-center\">\n                                <button type=\"button\" (click)=\"check(document._id, i, 'whoQA')\" class=\"btn btn-danger btn-md\" id=\"checkUnCheck\">\n                                    <span class=\"glyphicon glyphicon-remove\"></span> Unchecked\n                                </button>\n                            </div>\n                        </td>\n\n                        <td>\n                            <input type=\"text\" [(ngModel)]=\"document.whoQAs[i].question\" name=\"question\" class=\"input-question\">\n                        </td>\n                        <td>\n                            <input type=\"text\" [(ngModel)]=\"document.whoQAs[i].answer\" name=\"answer\" class=\"input-question\">\n                        </td>\n                        <td style=\"white-space: nowrap\">\n                            <form (submit)=\"editQA(document._id, i, whoQA.question, whoQA.answer, 'whoQA')\" class=\"form-buttons form-inline\">\n                                <button type=\"submit\" class=\"btn btn-default glyphicon glyphicon-floppy-disk\" id=\"saveDelete\">\n                                    Save\n                                </button>\n                            </form>\n\n                            <button type=\"button\" (click)=\"deleteQA(document._id, i, 'whoQA')\" class=\"btn btn-default glyphicon glyphicon-remove\" id=\"saveDelete\">\n                                Delete\n                            </button>\n\n                        </td>\n                    </tr>\n                </table>\n                <button type=\"button\" class=\"btn btn-default\" (click)=\"addRow(document._id, 'whoQA')\">Add row</button>\n            </div>\n\n        </ng-container>\n\n    </div>\n\n    <br>\n\n</div>\n\n<div *ngIf=\"admin == false\">\n    <div ng-controller=\"EditableRowCtrl\">\n\n        <ng-container *ngFor=\"let document of documents; let z = index;\">\n\n            <br>\n\n            <h2>Document : {{document.name}}</h2>\n\n            <br>\n\n            <div>\n                <table class=\"table table-bordered table-hover table-condensed\">\n                    <th colspan=\"4\">\n                        <h3>When-based Questions</h3>\n                    </th>\n                    <tr style=\"font-weight: bold\">\n                        <td style=\"width:11%\" align=\"center\">Checked</td>\n                        <td style=\"width:75%\" align=\"center\">Question</td>\n                        <td style=\"width:18%\" align=\"center\">Answer</td>\n                    </tr>\n                    <tr *ngFor=\"let whenQA of document.whenQAs;let i = index;\">\n\n                        <td>\n                            <div *ngIf=\"document.whenQAs[i].checked == true\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <div style=\"height:2em;border:1px\">\n                                    <span class=\"align-middle glyphicon glyphicon-ok\" vertical-align=\"bottom\" display=\"inline-block\"></span> Checked\n                                </div>\n                            </div>\n                            <div *ngIf=\"document.whenQAs[i].checked == false\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <span class=\"glyphicon glyphicon-remove\" vertical-align=\"bottom\" display=\"inline-block\"></span> Unchecked\n                            </div>\n                        </td>\n\n                        <td>\n                            {{document.whenQAs[i].question}}\n                        </td>\n                        <td>\n                            {{document.whenQAs[i].answer}}\n                        </td>\n                    </tr>\n                </table>\n            </div>\n            <div>\n                <table class=\"table table-bordered table-hover table-condensed\">\n                    <th colspan=\"4\">\n                        <h3>Where-based Questions</h3>\n                    </th>\n                    <tr style=\"font-weight: bold\">\n                        <td style=\"width:11%\" align=\"center\">Checked</td>\n                        <td style=\"width:75%\" align=\"center\">Question</td>\n                        <td style=\"width:18%\" align=\"center\">Answer</td>\n                    </tr>\n                    <tr *ngFor=\"let whereQA of document.whereQAs;let i = index;\">\n\n                        <td>\n                            <div *ngIf=\"document.whereQAs[i].checked == true\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <div style=\"height:2em;border:1px\">\n                                    <span class=\"align-middle glyphicon glyphicon-ok\" vertical-align=\"bottom\" display=\"inline-block\"></span> Checked\n                                </div>\n                            </div>\n                            <div *ngIf=\"document.whereQAs[i].checked == false\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <span class=\"glyphicon glyphicon-remove\" vertical-align=\"bottom\" display=\"inline-block\"></span> Unchecked\n                            </div>\n                        </td>\n\n                        <td>\n                            {{document.whereQAs[i].question}}\n                        </td>\n                        <td>\n                            {{document.whereQAs[i].answer}}\n                        </td>\n                    </tr>\n                </table>\n            </div>\n            <div>\n                <table class=\"table table-bordered table-hover table-condensed\">\n                    <th colspan=\"4\">\n                        <h3>Who-based Questions</h3>\n                    </th>\n                    <tr style=\"font-weight: bold\">\n                        <td style=\"width:11%\" align=\"center\">Checked</td>\n                        <td style=\"width:50%\" align=\"center\">Question</td>\n                        <td style=\"width:50%\" align=\"center\">Answer</td>\n                    </tr>\n                    <tr *ngFor=\"let whoQA of document.whoQAs;let i = index;\">\n\n                        <td>\n                            <div *ngIf=\"document.whoQAs[i].checked == true\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <div style=\"height:2em;border:1px\">\n                                    <span class=\"align-middle glyphicon glyphicon-ok\" vertical-align=\"bottom\" display=\"inline-block\"></span> Checked\n                                </div>\n                            </div>\n                            <div *ngIf=\"document.whoQAs[i].checked == false\" id=\"wrapper\" class=\"col-xs-2 col-md-7 col-lg-9 vcenter\" vertical-align=\"baseline\">\n                                <span class=\"glyphicon glyphicon-remove\" vertical-align=\"bottom\" display=\"inline-block\"></span> Unchecked\n                            </div>\n                        </td>\n\n                        <td>\n                            {{document.whoQAs[i].question}}\n                        </td>\n                        <td>\n                            {{document.whoQAs[i].answer}}\n                        </td>\n                    </tr>\n                </table>\n            </div>\n\n        </ng-container>\n\n    </div>\n</div>"
 
 /***/ }),
 
-/***/ 831:
+/***/ 918:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(434);
+module.exports = __webpack_require__(470);
 
 
 /***/ }),
 
-/***/ 89:
+/***/ 94:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1675,5 +1680,5 @@ var ValidateService = (function () {
 
 /***/ })
 
-},[831]);
+},[918]);
 //# sourceMappingURL=main.bundle.map

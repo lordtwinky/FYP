@@ -103,7 +103,7 @@ export class TopicPageComponent implements OnInit {
       if (data.success) {
      //   this.flashMessage.show('Update successful', { cssClass: 'alert-success', timeout: 3000 });
       } else {
-        console.log(data.foundGroup._id)
+        // console.log(data.foundGroup._id)
       }
     });
 
@@ -140,7 +140,7 @@ export class TopicPageComponent implements OnInit {
       if (data.success) {
       //  this.flashMessage.show('Deleted row successfully', { cssClass: 'alert-success', timeout: 3000 });
       } else {
-        console.log(data)
+        // console.log(data)
       }
     });
 
@@ -192,7 +192,7 @@ export class TopicPageComponent implements OnInit {
       if (data.success) {
         //this.flashMessage.show('Update successful', { cssClass: 'alert-success', timeout: 3000 });
       } else {
-        console.log(data.foundGroup._id)
+        // console.log(data.foundGroup._id)
       }
     });
   }
@@ -233,7 +233,7 @@ export class TopicPageComponent implements OnInit {
       if (data.success) {
        // this.flashMessage.show('Added row successfully', { cssClass: 'alert-success', timeout: 3000 });
       } else {
-        console.log(data)
+        // console.log(data)
       }
     });
 

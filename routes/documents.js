@@ -54,9 +54,9 @@ router.get('/documentList', (req, res) => {
     if (err) {
       res.json({ success: false, message: err }); // Return error message
     } else {
-      // Check if groups were found in database
+      // Check if documents were found in database
       if (!documents) {
-        res.json({ success: false, message: 'No documents found.' }); // Return error of no documents found
+        res.json({ success: false, message: 'No documents found.' }); // Return error if no documents were found
       } else {
         res.json({ success: true, documents: documents }); // Return success and documents array
       }
