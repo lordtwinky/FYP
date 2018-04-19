@@ -81,7 +81,12 @@ var AuthService = (function () {
     AuthService.prototype.getQuestions = function (text) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('https://questiongeneratingserver.herokuapp.com/', { headers: headers })
+        headers.append('Access-Control-Allow-Origin', '');
+        headers.append('Access-Control-Allow-Origin', 'https://questiongeneratingserver.herokuapp.com/');
+        headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        headers.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        headers.append('Access-Control-Allow-Credentials', 'true');
+        return this.http.post('https://questiongeneratingserver.herokuapp.com/', text, { headers: headers })
             .map(function (res) { return res.text(); });
     };
     AuthService.prototype.createTopic = function (topic) {
