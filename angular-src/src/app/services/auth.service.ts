@@ -77,7 +77,7 @@ export class AuthService {
   getQuestions(text){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('https://questiongeneratingserver.herokuapp.com/', {headers: headers})
+    return this.http.post('https://questiongeneratingserver.herokuapp.com/', text, {headers: headers})
     .map(res => res.text());
 
   }
