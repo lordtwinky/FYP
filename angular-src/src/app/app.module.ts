@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { QuestionGeneratorComponent } from './components/question-generator/question-generator.component';
@@ -25,11 +25,11 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { GroupCreateComponent } from './components/group-create/group-create.component';
 
 
+
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path: 'QGTool', component: QuestionGeneratorComponent},
   {path: 'Groups', component: GroupsComponent},
@@ -44,7 +44,6 @@ const appRoutes: Routes = [
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent,
     ProfileComponent,
     HomeComponent,
     QuestionGeneratorComponent,

@@ -132,9 +132,7 @@ router.put('/updateDocumentEdit', (req, res, next) => {
         else {
           res.json({ success: true, msg: 'Document Updated'});
         }
-      }
-
-    );
+      });
 
   });
 

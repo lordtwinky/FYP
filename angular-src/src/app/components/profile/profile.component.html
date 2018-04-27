@@ -1,18 +1,77 @@
-<div *ngIf="user">
-  <h2 class="page=header">Your account details:</h2>
-    <ul class="list-group">
-      <li class="list-group-item">Username: {{user.username}}</li>
-      <li class="list-group-item">Name: {{user.name}}</li>
-      <li class="list-group-item">Email: {{user.email}}</li>
-    </ul>
-</div>
+<h1 align="center">Profile</h1>
 
-<h2 class="page=header">Your groups:</h2>
-<div *ngFor="let group of groupNames">
-  <ul class="list-group">
-      <li class="list-group-item">  Name: {{group}}</li>
+<br>
 
-    </ul>
+<div id="formID" class="well">
+    <div *ngIf="user">
+        <h2 class="page=header">Your account details:</h2>
+        <ul class="list-group">
+            <li class="list-group-item" style="width: 70%;display:inline-block;padding:10px;">Username: {{user.username}}</li>
+            <li class="list-group-item" style="width: 70%;display:inline-block;padding:10px;">Email: {{user.email}}</li>
+        </ul>
+    </div>
+
+
+    <h2>Your groups:</h2>
+    <div *ngIf="groups.length > 0">
+            <!-- <ul class="list-group">
+        <div *ngFor="let group of groups">
+                <li class="list-group-item" style=" width: 70%;display:inline-block;padding:15px;">
+                    <a [routerLink]="['/GroupPage', group._id]">
+                        <span>{{group.name}}</span>
+                    </a>
+                </li>
+            
+        </div>
+    </ul> -->
+    <table class="table" style=" width: 70%;padding:15px;display:inline-block;" id="tableStyle">
+            <tr *ngFor="let group of groups;let i = index;">
+                <td style="width:85%" >
+                        <a [routerLink]="['/GroupPage', group._id]">
+                            <span>{{group.name}}</span>
+                        </a>
+                </td>
+                <td style="width:15%" align="center">
+                    <button type="button" (click)="leaveGroup(group, i)" class="btn btn-danger btn-md">
+                        <div >
+                            <span class="align-middle glyphicon glyphicon-remove" ></span> Leave group
+                        </div>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="groups.length == 0">
+        You are currently not a member of any groups.
+    </div>
+    <h2>Your invites:</h2>
+    <div *ngIf="inviteNames.length > 0">
+        <table class="table" style=" width: 70%;padding:15px;display:inline-block;" id="tableStyle">
+            <tr *ngFor="let invite of invites;let i = index;">
+                <td style="width:70%" >
+                        <a [routerLink]="['/GroupPage', invite._id]">
+                            <span>{{invite.name}}</span>
+                        </a>
+                </td>
+                <td style="width:15%" align="center">
+                    <button type="button" (click)="accept(invite, i)" class="btn btn-success btn-md">
+                        <div >
+                            <span class="align-middle glyphicon glyphicon-ok" ></span> Accept
+                        </div>
+                    </button>
+                </td>
+                <td style="width:15%" align="center">
+                    <button type="button" (click)="decline(invite, i)" class="btn btn-danger btn-md">
+                        <div >
+                            <span class="align-middle glyphicon glyphicon-remove" ></span> Decline
+                        </div>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="inviteNames.length == 0">
+        You currently have no group invitations.
+    </div>
+
 </div>
- 
- 

@@ -1,34 +1,73 @@
-<div *ngIf="group">
-  <h2 class="page=header">Welcome to the Group:</h2>
-    <ul class="list-group">
-      <li class="list-group-item">Name: {{group.name}}</li>
-    </ul>
-</div>
-
-<h2 class="page=header">All topics:</h2>
-<div *ngFor="let topic of topics">
-  <ul class="list-group">
-      <a [routerLink]="['/TopicPage', topic._id]">
-        <span>{{topic.name}}</span>
-      </a>
-    </ul>
-</div>
-
-
-<h2 class="page-header">Create new Topic</h2>
-<form (submit)="onCreateTopic()">
-  <div class="form-group">
-    <label>Name</label>
-    <input type="text" [(ngModel)]="name" name="name" class="form-control">
+<div *ngIf="joinBool==true && setting==2">
+  <div id="formID" class="well">
+    This is a private group. You must be invited to join.
   </div>
-  <input type="submit" class="btn btn-primary" value="Submit">
-</form>
-
-<div *ngIf="joinBool==true">
-<h2 class="page-header">Join this group</h2>
-<form (submit)="joinGroup()">
-  <div class="join-group">
-      <input type="submit" class="btn btn-primary" value="Join">
+</div>
+<div *ngIf="(joinBool==true && setting==1) || joinBool == false">
+  <div *ngIf="group">
+    <h1 align="center">{{group.name}}'s group page</h1>
   </div>
-</form>
+  <br>
+  <div id="formID" class="well">
+    <h2>All topics:</h2>
+    <div *ngIf="topics.length > 0">
+      <ul class="list-group">
+        <div *ngFor="let topic of topics">
+
+          <a [routerLink]="['/TopicPage', topic._id]">
+
+            <li class="list-group-item" style="width: 70%;display:inline-block;padding:10px;">{{topic.name}}</li>
+            <!-- <span>{{topic.name}}</span> -->
+          </a>
+
+        </div>
+      </ul>
+    </div>
+    <div *ngIf="topics.length == 0">
+      Currently no topics have been created for this group.
+      <br>
+      <br>
+    </div>
+
+    <div *ngIf="admin">
+
+      <h2>Create new Topic</h2>
+      <form (submit)="onCreateTopic()">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="name" name="name" class="form-control" placeholder="Enter the name of the topic..." style=" width: 50%;padding:15px;display:inline-block;vertical-align:middle">
+          <input type="submit" class="btn btn-primary" value="Submit" style=" width: 10%;padding:7.3px;display:inline-block;vertical-align:middle">
+        </div>
+
+      </form>
+
+      <h2>Invite a user to the group</h2>
+      <form (submit)="inviteUser()">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="usernameInvite" name="usernameInvite" class="form-control" placeholder="Enter the username of user you would like to invite..."
+            style=" width: 50%;padding:15px;display:inline-block;vertical-align:middle">
+          <input type="submit" class="btn btn-primary" value="Submit" style=" width: 10%;padding:7.3px;display:inline-block;vertical-align:middle">
+        </div>
+
+      </form>
+      <br>
+      <br>
+
+    </div>
+
+
+
+    <div *ngIf="joinBool==true && setting==1">
+      <br>
+      <h2>Join this group</h2>
+      <form (submit)="joinGroup()">
+        <div class="join-group">
+          <input type="submit" class="btn btn-primary" value="Join" style=" width: 20%;display:inline-block;vertical-align:middle">
+        </div>
+      </form>
+      <br>
+    </div>
+
+  </div>
+  <br>
+  <br>
 </div>

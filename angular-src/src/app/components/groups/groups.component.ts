@@ -15,11 +15,10 @@ import {FilterPipe} from '../../pipes/filter.pipe'
 export class GroupsComponent implements OnInit {
   name: string;
   admin: Object;
-  groupNames;
+  groupNames = [];
   topics: Array<Object>;
   selectedId: number;
-  groups
-  groupNamese:Array<String>;
+  groups;
 
   constructor(
     private validateService: ValidateService,
@@ -34,7 +33,6 @@ export class GroupsComponent implements OnInit {
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.admin = profile.user._id;
-      this.groupNamese = profile.groups;
     },
     err => {
       console.log(err);
@@ -42,6 +40,8 @@ export class GroupsComponent implements OnInit {
     });
   
     this.getGroups();
+
+
 
   }
 

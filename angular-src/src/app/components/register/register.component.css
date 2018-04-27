@@ -1,0 +1,54 @@
+/* Style inputs, select elements and textareas */
+input[type=text], select, textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  
+  /* Style the label to display next to the inputs */
+  label {
+    padding: 25px 264px 5px 0;
+    display: inline-block;
+  }
+  
+  /* Style the submit button */
+  input[type=submit] {
+    background-color: rgb(106, 160, 190);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+
+  
+
+
+#formID {
+  width: 550px;
+  margin:0 auto;
+  text-align: center;
+} 
+
+
+  input {
+    width: 50%;
+  }
+
+
+input[type="submit"]:hover {
+  background-color: rgb(58, 117, 148);
+}
+
+.well {
+  background: rgb(255, 255, 255);
+}
+
+h2{
+  color: rgb(0, 0, 0)
+}
+

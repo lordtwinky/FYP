@@ -88,6 +88,8 @@ export class QuestionGeneratorComponent implements OnInit {
 
   onGenerateQuestions() {
     if (this.inputText !== undefined) {
+      if(this.inputText.trim() !== ""){
+    
       this.authService.getQuestions(this.inputText).subscribe(data => {
 
         var dataArray = eval('(' + data + ')');
@@ -145,10 +147,14 @@ export class QuestionGeneratorComponent implements OnInit {
         }
 
       });
+      }
+      else{
+        this.flashMessage.show('Please enter in text to the text area, either by copy pasting or by uploading a .txt file or .docx file', { cssClass: 'alert-danger', timeout: 7500 });
+      }
 
     }
     else{
-      this.flashMessage.show('Please enter in text to the text area, either by copy pasting or by uploading a .txt file or .pdf file', { cssClass: 'alert-danger', timeout: 7500 });
+      this.flashMessage.show('Please enter in text to the text area, either by copy pasting or by uploading a .txt file or .docx file', { cssClass: 'alert-danger', timeout: 7500 });
     }
 
 

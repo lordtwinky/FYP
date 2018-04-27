@@ -33,7 +33,7 @@ section, footer, header, aside, nav{
 	box-shadow: 0 1px 1px #ccc;
 	border-radius: 2px;
 	width: 400px;
-	padding: 14px;
+	padding: 10px;
 	margin: 80px auto 20px;
 	position:relative;
 }

@@ -1,16 +1,26 @@
+<h1 align="center">Browse groups</h1>
+<h4 align="center"> View all public groups</h4>
 <div class="bar">
   <form id="search">
-    <label> Search: </label>
-    <input type="text" [(ngModel)]="term" name="term"/>
+    <input type="text" [(ngModel)]="term" name="term" placeholder="Search groups by name..." />
   </form>
 </div>
+<div *ngIf="groupNames.length > 0">
   <ul id="group-listing">
     <li *ngFor="let group of groupNames | filter:term">
       <div class="single-group">
-        
-        <a [routerLink]="['/GroupPage', group._id]">
-          <span>{{group.name}}</span>
-        </a>
+        <div *ngIf="group.school!=undefined">
+          ({{group.school}}) -
+          <a [routerLink]="['/GroupPage', group._id]">
+            <span>{{group.name}}</span>
+          </a>
+        </div>
+        <div *ngIf="group.school==undefined" >
+          <a [routerLink]="['/GroupPage', group._id]">
+            <span>{{group.name}}</span>
+          </a>
+        </div>
       </div>
     </li>
   </ul>
+</div>

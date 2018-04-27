@@ -7,7 +7,9 @@ var Schema = mongoose.Schema;
 const GroupSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique : true,
+        dropDups: true
     },
     admin: {
         type: Schema.Types.ObjectId,
@@ -17,20 +19,8 @@ const GroupSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    type: {
-        type: Number,
-        required: true
-    },
     school: {
         type: String,
-        required: false
-    },
-    organization: {
-        type: String,
-        required: false
-    },
-    fields:{
-        type:Array,
         required: false
     },
     topics: [{

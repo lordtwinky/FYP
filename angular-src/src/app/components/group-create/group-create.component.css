@@ -16,13 +16,12 @@ input[type=text], select, textarea{
   
   /* Style the submit button */
   input[type=submit] {
-    background-color: #4CAF50;
+    background-color: rgb(106, 160, 190);
     color: white;
     padding: 12px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    float: right;
   }
   
   /* Style the container */
@@ -60,3 +59,52 @@ input[type=text], select, textarea{
       margin-top: 0;
     }
   }
+
+  label > input{ /* HIDE RADIO */
+    visibility: hidden; /* Makes input not-clickable */
+
+  }
+  label > input + div{ 
+    cursor:pointer;
+    padding: 6px;
+    border:2px solid rgb(128, 177, 204);
+  }
+  label > input:hover + div{ 
+    cursor:pointer;
+    padding: 6px;
+    border:2px solid rgb(128, 177, 204);
+    background-color: rgb(128, 177, 204);
+  }
+  label > input:checked + div{ 
+    background-color: rgb(81, 141, 173);
+    border:2px solid rgb(81, 141, 173);
+    padding: 6px;
+  }
+
+  .glyphicon {
+    font-size: 50px;
+}
+
+#formID {
+  width: 855px;
+  margin:0 auto;
+  text-align: center;
+} 
+
+
+  input {
+    width: 50%;
+  }
+
+
+input[type="submit"]:hover {
+  background-color: rgb(58, 117, 148);
+}
+
+.well {
+  background: rgb(255, 255, 255);
+}
+
+h2{
+  color: rgb(0, 0, 0)
+}
