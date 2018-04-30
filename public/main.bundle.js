@@ -736,26 +736,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var HomeComponent = (function () {
     function HomeComponent() {
-        this.slide = 1;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        console.log(this.slide);
-    };
-    HomeComponent.prototype.nextSlide = function () {
-        if (this.slide == 3) {
-            this.slide = 1;
-        }
-        else {
-            this.slide++;
-        }
-    };
-    HomeComponent.prototype.previousSlide = function () {
-        if (this.slide == 1) {
-            this.slide = 3;
-        }
-        else {
-            this.slide--;
-        }
     };
     HomeComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -1711,7 +1693,7 @@ module.exports = "<h1 align=\"center\">Browse groups</h1>\n<h4 align=\"center\">
 /***/ 868:
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<section id=\"showcase\">\n\n<img src='/assets/images/logo.PNG' style=\"width:100%;height:70%\" >\n\n</section>\n\n<br>\n<div >\n    <div class=\"container2\">\n        <h2>First time user?</h2>\n      </div>\n  <section id=\"boxes\">\n\n    <div class=\"box\">\n      <h3>Create groups</h3>\n      <p>Share generated questions from the tool with peers by creating and joining groups.</p>\n      <br>\n      <div class=\"boxImage\" id=\"boxImage1\">\n        <img src='/assets/images/groupcreate.png' >\n      </div>\n    </div>\n    <div class=\"box\">\n      <h3>Share questions</h3>\n      <p>Add content to the group by adding topics and inviting other users.</p>\n      <br>\n      <div class=\"boxImage\" id=\"boxImage2\">\n        <img src='/assets/images/topicCreate.png'>\n      </div>\n    </div>\n    <div class=\"box\">\n      <h3>Use topics</h3>\n      <p>Edit, add and delete questions and answers generated from the tool within topics.</p>\n      <br>\n      <div class=\"boxImage\" id=\"boxImage3\">\n        <img src='/assets/images/editquestions.png'>\n      </div>\n    </div>\n\n  </section>\n</div>"
+module.exports = "\n\n<section id=\"showcase\">\n\n<img src='/assets/images/logo.PNG' style=\"width:100%;height:70%\" >\n\n</section>\n\n<br>\n<div >\n    <div class=\"container2\">\n        <h2>First time user?</h2>\n      </div>\n  <section id=\"boxes\">\n\n    <div class=\"box\">\n      <h3>Create groups</h3>\n      <p>Share generated questions from the tool with peers by creating and joining groups.</p>\n      <br>\n      <div class=\"boxImage\" id=\"boxImage1\">\n        <img src='/assets/images/groupcreate.PNG' >\n      </div>\n    </div>\n    <div class=\"box\">\n      <h3>Share questions</h3>\n      <p>Add content to the group by adding topics and inviting other users.</p>\n      <br>\n      <div class=\"boxImage\" id=\"boxImage2\">\n        <img src='/assets/images/topicCreate.png'>\n      </div>\n    </div>\n    <div class=\"box\">\n      <h3>Use topics</h3>\n      <p>Edit, add and delete questions and answers generated from the tool within topics.</p>\n      <br>\n      <div class=\"boxImage\" id=\"boxImage3\">\n        <img src='/assets/images/editquestions.png'>\n      </div>\n    </div>\n\n  </section>\n</div>"
 
 /***/ }),
 
