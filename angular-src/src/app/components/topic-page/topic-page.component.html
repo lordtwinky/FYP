@@ -1,5 +1,25 @@
 <div *ngIf="topic">
-    <h1 class="page=header">Topic : {{topic.name}}</h1>
+    <h1 align="center">Topic : {{topic.name}}</h1>
+</div>
+<br>
+<div *ngIf="documents == undefined || documents.length == 0">
+    <div id="formID" class="well">
+        <br>
+        <br>
+        <h3 align="center" >There are currently no documents associated with this topic</h3>
+        <br>
+        <br>
+        <h4 align="center">Be the first to add some documents by using the tool!</h4>
+        <br>
+        <!-- <a [routerLink]="['/GroupPage', group._id]">
+            <span>{{group.name}}</span>
+          </a> -->
+        <form (submit)="onCreateTopic()" align="center">
+            <input type="submit" class="btn btn-primary" [routerLink]="['/QGTool']" style=" width: 10%;padding:7.3px;display:inline-block;vertical-align:middle" value="Go to QG tool">
+        </form>
+        <br>
+        <br>
+    </div>
 </div>
 
 <!-- if the admin of the group is viewing the page -->

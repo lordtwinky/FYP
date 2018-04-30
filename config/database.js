@@ -1,5 +1,5 @@
 module.exports = {
-    database: 'mongodb://alex:y]x$62L@ds219318.mlab.com:19318/qgapp',
+    database: 'mongodb://alex:alex@ds261969.mlab.com:61969/quization',
     secret: 'yoursecret'
 } 
 

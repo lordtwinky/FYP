@@ -48,6 +48,7 @@ export class TopicPageComponent implements OnInit {
     this.authService.getTopicPage(topicI).subscribe(data => {
       this.topic = data.topic;
       this.documents = data.documents;
+      console.log(this.documents)
     });
 
     //We now check to see whether the user is the admin (by first viewing the group that the topic belongs to)
